@@ -2,8 +2,8 @@
 
 ## Requirements
 
-- POCO F7 (`onyx`)
-- **KernelSU** (LKM) + KernelSU Manager â€” **only tested root solution**
+- Compatible device (POCO F7 / `onyx` validated)
+- **Any ROM** with **KernelSU** (LKM) + KernelSU Manager — **only tested root solution**
 - SELinux may remain **Enforcing**
 - Camera permission for the app
 - Reboot after module install
@@ -26,7 +26,7 @@
    - Confirm the persistent â€œListening for chop-chop and twist gesturesâ€ notification
 7. Test Chop-Chop (torch) and Twist (camera) with the screen on.
 
-On PixelOS onyx, `/system` is often full. The module still bundles a priv-app path, but `customize.sh` / `service.sh` also `pm install` the APK so the package remains available after reboot.
+On many ROMs (including the PixelOS onyx reference), `/system` is often full. The module still bundles a priv-app path, but `customize.sh` / `service.sh` also `pm install` the APK so the package remains available after reboot.
 
 ## Verify
 

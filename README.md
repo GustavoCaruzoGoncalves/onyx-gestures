@@ -7,11 +7,13 @@ Software recognition of:
 - **Double chopping motion** → toggle flashlight  
 - **Double wrist rotation** → launch camera  
 
-Delivered as a reversible **KernelSU** module plus a Kotlin foreground service. The primary tested device is the **POCO F7** (`onyx`) on PixelOS 17 with an LSM6DSV IMU.
+Delivered as a reversible **KernelSU** module plus a Kotlin foreground service. Intended for **any Android ROM** that can load KernelSU modules on a compatible device — not tied to a single custom ROM.
+
+Primary validation so far: **POCO F7** (`onyx`) with an LSM6DSV IMU (reference build used PixelOS 17). Other ROMs on the same device are expected to work the same way; please report results.
 
 > **Disclaimer:** This is an independent community-developed project. It is not affiliated with, endorsed by, or sponsored by Motorola, Lenovo, Xiaomi, or any other device manufacturer.
 
-> **Status:** Usable on the tested device. Thresholds come from a small labeled capture set. Treat this as an enthusiast module, not an OEM feature.
+> **Status:** Usable on the validated device. Thresholds come from a small labeled capture set. Treat this as an enthusiast module, not an OEM feature.
 
 ## Features
 
@@ -26,17 +28,21 @@ Delivered as a reversible **KernelSU** module plus a Kotlin foreground service. 
 | KernelSU module keep-alive (`service.sh`) | **Implemented** |
 | Magisk / APatch | **Not tested** |
 
-## Device compatibility
+## Device & ROM compatibility
 
-**Tested environment (only):**
+**Goal:** work on **any ROM** (AOSP / PixelOS / Lineage / HyperOS ports / etc.) as long as KernelSU modules and standard Android camera/torch APIs are available.
+
+**Validated so far (reference):**
 
 | Item | Value |
 |------|-------|
 | Device | POCO F7 |
 | Codename | `onyx` |
-| ROM | PixelOS (Android **17**) |
+| ROM (reference) | PixelOS (Android **17**) — *not* a requirement |
 | Root | **KernelSU** LKM (`ksud` 3.3.x) |
-| SELinux | Enforcing |
+| SELinux | Enforcing (on the reference device) |
+
+Other ROMs on `onyx` (and similar LSM6DSV devices) should install the same ZIP; gesture thresholds may need in-app sensitivity tuning.
 
 ### Root manager statement
 
@@ -46,8 +52,8 @@ It has **NOT** been tested with Magisk, APatch, or other root managers. The ZIP 
 
 ## Requirements
 
-- POCO F7 (`onyx`) or a closely related device with LSM6DSV (other devices: **unsupported / untested**)
-- KernelSU + manager able to load modules
+- Compatible device with accel + gyro (POCO F7 / `onyx` validated; other devices: try and report)
+- **Any ROM** with KernelSU + manager able to load modules
 - Camera permission for torch / camera intents
 
 ## Installation

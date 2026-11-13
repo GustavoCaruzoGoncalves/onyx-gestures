@@ -10,6 +10,7 @@ All notable changes to this project are documented in this file.
 - KernelSU Manager launch uses Android package visibility (`<queries>`); no GitHub fallback.
 - Root probe messaging: authorize Onyx Gestures in KernelSU Manager when denied.
 - SHA-256 verification when `update.json` includes `sha256`.
+- Docs clarify **ROM-agnostic** intent: any KernelSU-capable ROM; PixelOS is the reference test build only.
 
 ### Notes
 - Module ID remains `f7_moto_actions` for upgrade compatibility with existing installs.

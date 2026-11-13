@@ -10,7 +10,7 @@ Unit tests cover synthetic streams for `ChopChopDetector` and `TwistDetector` (p
 
 ## Manual smoke (device)
 
-Environment: POCO F7 / PixelOS 17 / KernelSU.
+Reference environment: POCO F7 / KernelSU (validated on PixelOS 17; other ROMs welcome).
 
 | ID | Procedure | Expected |
 |----|-----------|----------|
