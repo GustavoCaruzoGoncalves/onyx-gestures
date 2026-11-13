@@ -13,6 +13,7 @@ import android.os.VibrationEffect
 import android.os.Vibrator
 import org.f7.motoactions.MotoActionsApp
 import org.f7.motoactions.detect.ChopChopDetector
+import org.f7.motoactions.detect.TemporalTwistDetector
 import org.f7.motoactions.detect.TwistDetector
 import org.f7.motoactions.util.CalibrationStore
 import org.f7.motoactions.util.CameraLauncher
@@ -43,7 +44,8 @@ class SensorPipeline(
     private val proximity = sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY)
 
     private val chop = ChopChopDetector()
-    private val twist = TwistDetector()
+    private val twistLegacy = TwistDetector()
+    private val twistTemporal = TemporalTwistDetector()
 
     private var proxCovered = false
     private var imuArmed = false
@@ -60,6 +62,7 @@ class SensorPipeline(
     private var lastGx = 0f
     private var lastGy = 0f
     private var lastGz = 0f
+    private var lastTemporalEvent = "IDLE"
 
     private val wakeLock: PowerManager.WakeLock =
         powerManager
@@ -100,7 +103,9 @@ class SensorPipeline(
         releaseScreenOffWakeLock()
         energy.onImuMode(EnergyMonitor.ImuMode.OFF)
         chop.reset()
-        twist.reset()
+        twistLegacy.reset()
+        twistTemporal.reset()
+        lastTemporalEvent = "IDLE"
     }
 
     /** Called periodically while the service lives — rebind if IMU went silent. */
@@ -132,16 +137,23 @@ class SensorPipeline(
         chop.maxPeakGapMs = prefs.chopMaxGapMs
         chop.minPeakGapMs = 70L
         chop.refractoryAfterGestureMs = prefs.cooldownMs
-        twist.peakThreshold = prefs.effectiveTwistEdge()
-        twist.minGyP2p = prefs.effectiveTwistGyP2p()
-        twist.minPeakW = prefs.effectiveTwistPeakW()
-        twist.windowMs = prefs.twistWindowMs
-        twist.maxPeakGapMs = prefs.twistMaxGapMs
-        twist.refractoryAfterGestureMs = prefs.cooldownMs
-        twist.minPeakGapMs = 70L
-        twist.accelAbortThreshold = prefs.twistAccelVeto
+        twistLegacy.peakThreshold = prefs.effectiveTwistEdge()
+        twistLegacy.minGyP2p = prefs.effectiveTwistGyP2p()
+        twistLegacy.minPeakW = prefs.effectiveTwistPeakW()
+        twistLegacy.windowMs = prefs.twistWindowMs
+        twistLegacy.maxPeakGapMs = prefs.twistMaxGapMs
+        twistLegacy.refractoryAfterGestureMs = prefs.cooldownMs
+        twistLegacy.minPeakGapMs = 70L
+        twistLegacy.accelAbortThreshold = prefs.twistAccelVeto
+        twistTemporal.refractoryAfterGestureMs = prefs.cooldownMs
+        // Sensitivity eases temporal enter/peak gates (higher sens → lower enter).
+        val sens = prefs.sensitivity.coerceIn(0.5f, 2.0f)
+        twistTemporal.rateEnter = 6f / sens
+        twistTemporal.minPeakRate = 9f / sens
+        twistTemporal.minHalfIntegral = 0.55f / sens
         screenOn = powerManager.isInteractive
         syncListeningMode("prefs")
+        EventLog.add("twistEngine=${if (prefs.useTemporalTwist) "temporal" else "legacy_v1.1.2"}")
     }
 
     fun setCapturing(enabled: Boolean, label: String = "idle") {
@@ -277,7 +289,9 @@ class SensorPipeline(
                     }
                 }
                 chop.onIdleTick(t)
-                twist.onAccelerometerDynamic(chop.lastDynamicMagnitude())
+                val dyn = chop.lastDynamicMagnitude()
+                twistLegacy.onAccelerometerDynamic(dyn)
+                twistTemporal.onAccelerometerDynamic(dyn)
             }
             Sensor.TYPE_GYROSCOPE -> {
                 lastGx = event.values[0]
@@ -286,16 +300,34 @@ class SensorPipeline(
                 maybeCapture(t)
                 chop.onGyroscope(lastGx, lastGy, lastGz)
                 if (prefs.twistEnabled) {
-                    if (twist.onGyroscope(lastGx, lastGy, lastGz, t)) {
-                        onTwist(t)
-                    }
+                    val hit =
+                        if (prefs.useTemporalTwist) {
+                            val fired = twistTemporal.onGyroscope(lastGx, lastGy, lastGz, t)
+                            val ev = twistTemporal.lastEventCode()
+                            if (ev != lastTemporalEvent) {
+                                lastTemporalEvent = ev
+                                // Always log state transitions for research diagnosis.
+                                if (
+                                    ev.startsWith("ROTATION_") ||
+                                        ev.startsWith("REVERSAL_") ||
+                                        ev.startsWith("GESTURE_")
+                                ) {
+                                    EventLog.add("TWIST_SM $ev")
+                                }
+                            }
+                            fired
+                        } else {
+                            twistLegacy.onGyroscope(lastGx, lastGy, lastGz, t)
+                        }
+                    if (hit) onTwist(t)
                 }
             }
         }
     }
 
     private fun onChop(t: Long) {
-        twist.suppressUntil(t)
+        twistLegacy.suppressUntil(t)
+        twistTemporal.suppressUntil(t)
         energy.onChop()
         EventLog.add("CHOP-CHOP ${chop.lastRejectReason()}")
         runCatching {
@@ -311,7 +343,13 @@ class SensorPipeline(
     private fun onTwist(t: Long) {
         chop.suppressUntil(t)
         energy.onTwist()
-        EventLog.add("TWIST ${twist.lastRejectReason()}")
+        val detail =
+            if (prefs.useTemporalTwist) {
+                twistTemporal.lastRejectReason()
+            } else {
+                twistLegacy.lastRejectReason()
+            }
+        EventLog.add("TWIST $detail")
         camera.launch()
     }
 

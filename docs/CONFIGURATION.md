@@ -9,6 +9,7 @@ Settings are stored in SharedPreferences (`f7_moto_actions`, schema **12**). Ope
 | `service_enabled` | `true` | Master enable for the gesture engine |
 | `chop_enabled` | `true` | Chop-Chop → torch |
 | `twist_enabled` | `true` | Twist → camera |
+| `twist_temporal` | `true` | Temporal sequence Twist (default); `false` = legacy magnitude engine |
 | `screen_off_enabled` | `true` | Keep listening when display is off (higher power) |
 | `verbose_logs` | `false` | Extra `logcat` diagnostics |
 
@@ -33,14 +34,17 @@ Effective chop threshold: `chop_ax_p2p / sensitivity`.
 
 ## Twist detector
 
+**Default engine:** `TemporalTwistDetector` (pref `twist_temporal=true`) — state machine with angular integrals / reversal.  
+**Legacy engine** (`twist_temporal=false`) uses the magnitude gates below:
+
 | Key | Default | Effect |
 |-----|---------|--------|
-| `twist_edge` | `8` | Edge / onset gate |
-| `twist_gy_p2p` | `25` | Gyro-Y peak-to-peak |
-| `twist_peak_w` | `15` | Weighted peak score |
-| `twist_window_ms` | `900` | Analysis window |
-| `twist_max_gap_ms` | `350` | Max gap between twist peaks |
-| `twist_accel_veto` | `22` | Reject when linear accel is too high (walk/shake) |
+| `twist_edge` | `8` | Edge / onset gate (legacy) |
+| `twist_gy_p2p` | `25` | Gyro-Y peak-to-peak (legacy) |
+| `twist_peak_w` | `15` | Weighted peak score (legacy) |
+| `twist_window_ms` | `900` | Analysis window (legacy) |
+| `twist_max_gap_ms` | `350` | Max gap between twist peaks (legacy) |
+| `twist_accel_veto` | `22` | Reject when linear accel is too high (walk/shake; both engines, temporal uses a slightly higher abort) |
 
 ## Camera launch path
 

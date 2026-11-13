@@ -152,6 +152,7 @@ private fun SettingsScreen(
     var service by remember { mutableStateOf(prefs.serviceEnabled) }
     var chop by remember { mutableStateOf(prefs.chopEnabled) }
     var twist by remember { mutableStateOf(prefs.twistEnabled) }
+    var temporalTwist by remember { mutableStateOf(prefs.useTemporalTwist) }
     var screenOff by remember { mutableStateOf(prefs.screenOffEnabled) }
     var logs by remember { mutableStateOf(prefs.verboseLogs) }
     var sens by remember { mutableFloatStateOf(prefs.sensitivity) }
@@ -209,6 +210,20 @@ private fun SettingsScreen(
             twist = it
             prefs.twistEnabled = it
         }
+        RowToggle("Temporal Twist detector", temporalTwist) {
+            temporalTwist = it
+            prefs.useTemporalTwist = it
+            // Pref listener in GestureService re-applies thresholds / engine selection.
+            GestureService.start(MotoActionsApp.instance)
+        }
+        Text(
+            if (temporalTwist) {
+                "Twist engine: temporal sequence (default)"
+            } else {
+                "Twist engine: legacy magnitude gates"
+            },
+            style = MaterialTheme.typography.bodySmall,
+        )
         RowToggle("Screen-off (IMU + wakelock)", screenOff) {
             screenOff = it
             prefs.screenOffEnabled = it

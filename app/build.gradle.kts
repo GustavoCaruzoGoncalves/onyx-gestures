@@ -12,8 +12,8 @@ android {
         applicationId = "org.f7.motoactions"
         minSdk = 31
         targetSdk = 37
-        versionCode = 19
-        versionName = "1.1.2"
+        versionCode = 21
+        versionName = "1.2.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 

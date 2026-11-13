@@ -2,6 +2,20 @@
 
 All notable changes to this project are documented in this file.
 
+## [1.2.0] — 2026-11-13
+
+### Added
+- **Temporal Twist detector** as the default Quick Capture engine (`IDLE→ROT1→REVERSAL→ROT2→CONFIRM`).
+- Pref / UI toggle to fall back to the legacy magnitude-based `TwistDetector`.
+- State-transition EventLog lines (`TWIST_SM …`) for diagnosis.
+
+### Changed
+- Twist recognition prioritizes kinematic sequence (integrals, reversal, timing) over a single `gy_p2p` gate — recovers softer executions such as F7 SensorLab `NORMAL_005` (`gy_p2p≈24.7`).
+
+### Notes
+- Chop-Chop unchanged. Legacy Twist remains available for rollback.
+- Small labeled F7 set; further negatives still welcome.
+
 ## [1.1.2] — 2026-11-13
 
 ### Added
