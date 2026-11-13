@@ -1,21 +1,11 @@
 # Twist implementation
 
-**App / module:** `1.2.0` (versionCode 21)
+**App / module:** `1.2.1` (versionCode 22) · author **GustavoCaruzo**
 
-## Engines
+## Engine
 
-| Pref `twist_temporal` | Class | Role |
-|-----------------------|-------|------|
-| `true` (**default**) | `TemporalTwistDetector` | State machine IDLE→ROT1→REVERSAL→ROT2→CONFIRM |
-| `false` | `TwistDetector` | Legacy magnitude gates (`gy_p2p` / peak_w / opposite edges) |
-
-UI toggle: **Temporal Twist detector**.
-
-## Why temporal is default
-
-Legacy accepts only when a 900 ms window has `gy_p2p≥25` **and** opposite \|gy\| edges.  
-Softer but valid double twists (e.g. F7 `NORMAL_005`, `gy_p2p≈24.7`) are false negatives.  
-The temporal engine confirms via angular integrals + reversal on the dominant axis at onset.
+`TemporalTwistDetector` only — state machine `IDLE→ROT1→REVERSAL→ROT2→CONFIRM`.  
+No in-app switch to the old magnitude-based detector.
 
 ## Logging
 
@@ -29,4 +19,4 @@ The temporal engine confirms via angular integrals + reversal on the dominant ax
 
 ## Chop / sampling
 
-Chop-Chop untouched. IMU target rate unchanged (`sampling_hz`, default 100). Temporal work is O(1) per gyro sample.
+Chop-Chop untouched. IMU target rate unchanged (`sampling_hz`, default 100).

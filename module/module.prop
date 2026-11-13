@@ -1,6 +1,6 @@
 id=f7_moto_actions
 name=F7 Moto Actions
-version=v1.2.0
-versionCode=21
-author=Tecno / PocoF7Gestures
-description=Chop/Twist for POCO F7. v1.2.0: temporal Twist detector (default) + root camera helper.
+version=v1.2.1
+versionCode=22
+author=GustavoCaruzo
+description=Chop/Twist for POCO F7. v1.2.1: temporal Twist detector + root camera helper.

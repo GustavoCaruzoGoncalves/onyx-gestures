@@ -11,7 +11,7 @@ Motorola OEM phones expose dedicated SensorHub virtual sensors for these gesture
 | Feature | Status |
 |---------|--------|
 | Chop-Chop → flashlight toggle | **Implemented** (screen on verified; screen off partial / hardware-limited) |
-| Twist → camera launch (MGC / secure still intent) | **Implemented** — default **temporal** sequence detector; legacy magnitude engine available as rollback; background launch via root helper + BAL / full-screen intent |
+| Twist → camera launch (MGC / secure still intent) | **Implemented** — temporal sequence detector; background launch via root helper + BAL / full-screen intent |
 | Screen-on continuous IMU sampling (~100 Hz default) | **Implemented** |
 | Screen-off listening | **Implemented with caveats** — F7 IMU is non-wakeup; uses renewable `PARTIAL_WAKE_LOCK` + high-rate sampling. Not Motorola SensorHub parity. Long idle / deep Doze **not proven** |
 | Proximity pocket guard | **Implemented** |
@@ -73,7 +73,6 @@ In-app toggles and advanced thresholds (schema 12 defaults):
 | Service enabled | on | Master switch |
 | Chop enabled | on | Flashlight |
 | Twist enabled | on | Camera |
-| Temporal Twist detector | on | Default sequence engine; off = legacy magnitude gates |
 | Screen-off gestures | on | Higher power; limited by non-wakeup IMU |
 | Sensitivity | `1.0` | `0.5`–`2.0` (higher = easier) |
 | Cooldown | `1000` ms | `400`–`5000` |
@@ -103,7 +102,7 @@ IMU (LSM6DSV accel+gyro) + proximity
  SensorPipeline (FGS + optional ScreenOff wake lock)
         │
         ├─ ChopChopDetector ──► TorchController
-        └─ TemporalTwistDetector (default) / TwistDetector ─► CameraLauncher
+        └─ TemporalTwistDetector ─► CameraLauncher
                                  ├─ flag file → module root helper (am start MGC)
                                  ├─ BAL / full-screen intent trampoline
                                  └─ STILL_IMAGE_CAMERA(_SECURE)
