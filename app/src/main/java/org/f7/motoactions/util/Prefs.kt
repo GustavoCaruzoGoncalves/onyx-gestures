@@ -36,6 +36,16 @@ class Prefs(context: Context) {
         get() = sp.getBoolean(KEY_LOGS, false)
         set(v) = sp.edit { putBoolean(KEY_LOGS, v) }
 
+    /** 0 = system, 1 = light, 2 = dark */
+    var themeMode: Int
+        get() = sp.getInt(KEY_THEME, DEFAULT_THEME)
+        set(v) = sp.edit { putInt(KEY_THEME, v.coerceIn(0, 2)) }
+
+    /** Empty / "system" = device locale; else BCP-47 tag (en, pt, es, zh-CN, zh-TW, hi, ru). */
+    var appLanguage: String
+        get() = sp.getString(KEY_LANG, DEFAULT_LANG) ?: DEFAULT_LANG
+        set(v) = sp.edit { putString(KEY_LANG, v) }
+
     /** 0.5 … 2.0 — higher = easier to trigger (divides gates). */
     var sensitivity: Float
         get() = sp.getFloat(KEY_SENS, DEFAULT_SENSITIVITY)
@@ -159,6 +169,8 @@ class Prefs(context: Context) {
         const val KEY_TWIST = "twist_enabled"
         const val KEY_SCREEN_OFF = "screen_off_enabled"
         const val KEY_LOGS = "verbose_logs"
+        const val KEY_THEME = "theme_mode"
+        const val KEY_LANG = "app_language"
         const val KEY_SENS = "sensitivity"
         const val KEY_COOLDOWN = "cooldown_ms"
         const val KEY_CHOP_AX_P2P = "chop_ax_p2p"
@@ -191,5 +203,7 @@ class Prefs(context: Context) {
         const val DEFAULT_COOLDOWN_MS = 1000L
         const val DEFAULT_HZ = 100
         const val DEFAULT_TWIST_ACCEL_VETO = 22f
+        const val DEFAULT_THEME = 0
+        const val DEFAULT_LANG = "system"
     }
 }

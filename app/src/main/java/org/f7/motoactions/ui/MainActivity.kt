@@ -1,6 +1,7 @@
 package org.f7.motoactions.ui
 
 import android.Manifest
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -10,14 +11,22 @@ import android.os.PowerManager
 import android.provider.Settings
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.background
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.FilterChip
@@ -32,19 +41,29 @@ import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
+import androidx.core.view.WindowCompat
 import kotlinx.coroutines.delay
+import org.f7.motoactions.BuildConfig
 import org.f7.motoactions.MotoActionsApp
+import org.f7.motoactions.R
 import org.f7.motoactions.service.GestureService
+import org.f7.motoactions.ui.theme.F7MotoActionsTheme
+import org.f7.motoactions.ui.theme.ThemeMode
 import org.f7.motoactions.util.CalibrationStore
 import org.f7.motoactions.util.EnergyMonitor
 import org.f7.motoactions.util.EventLog
+import org.f7.motoactions.util.LocaleHelper
 import org.f7.motoactions.util.Prefs
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -57,19 +76,37 @@ class MainActivity : ComponentActivity() {
             if (result.values.any { it }) maybeStartService()
         }
 
+    override fun attachBaseContext(newBase: Context) {
+        val lang = Prefs(newBase).appLanguage
+        super.attachBaseContext(LocaleHelper.wrap(newBase, lang))
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
+        WindowCompat.setDecorFitsSystemWindows(window, false)
         ensurePermissions()
         requestBatteryExemption()
         maybeStartService()
         setContent {
-            MaterialTheme {
-                Surface(Modifier.fillMaxSize()) {
+            val prefs = MotoActionsApp.instance.prefs
+            var themeMode by remember { mutableIntStateOf(prefs.themeMode) }
+            F7MotoActionsTheme(mode = ThemeMode.fromPref(themeMode)) {
+                Surface(Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
                     SettingsScreen(
-                        prefs = MotoActionsApp.instance.prefs,
+                        prefs = prefs,
                         energy = MotoActionsApp.instance.energy,
+                        themeMode = themeMode,
+                        onThemeMode = {
+                            themeMode = it
+                            prefs.themeMode = it
+                        },
+                        onLanguage = { tag ->
+                            prefs.appLanguage = tag
+                            recreate()
+                        },
                         onToggleService = { enabled ->
-                            MotoActionsApp.instance.prefs.serviceEnabled = enabled
+                            prefs.serviceEnabled = enabled
                             if (enabled) GestureService.start(this) else GestureService.stop(this)
                         },
                         onCapture = { label, on ->
@@ -85,12 +122,8 @@ class MainActivity : ComponentActivity() {
                         onApplyCalibration = {
                             val suggestion =
                                 CalibrationStore.suggestFromCsv(CalibrationStore.captureFile(this))
-                            suggestion.chopPeak?.let {
-                                MotoActionsApp.instance.prefs.chopPeakThreshold = it
-                            }
-                            suggestion.twistPeak?.let {
-                                MotoActionsApp.instance.prefs.twistPeakThreshold = it
-                            }
+                            suggestion.chopPeak?.let { prefs.chopPeakThreshold = it }
+                            suggestion.twistPeak?.let { prefs.twistPeakThreshold = it }
                             EventLog.add("calibration applied: ${suggestion.notes}")
                             suggestion.notes
                         },
@@ -144,6 +177,9 @@ class MainActivity : ComponentActivity() {
 private fun SettingsScreen(
     prefs: Prefs,
     energy: EnergyMonitor,
+    themeMode: Int,
+    onThemeMode: (Int) -> Unit,
+    onLanguage: (String) -> Unit,
     onToggleService: (Boolean) -> Unit,
     onCapture: (label: String, on: Boolean) -> Unit,
     onApplyCalibration: () -> String,
@@ -161,6 +197,7 @@ private fun SettingsScreen(
     var calibNote by remember { mutableStateOf("") }
     var entries by remember { mutableStateOf(EventLog.snapshot()) }
     var energySnap by remember { mutableStateOf(energy.snapshot()) }
+    var language by remember { mutableStateOf(prefs.appLanguage) }
 
     DisposableEffect(Unit) {
         val logListener: (List<EventLog.Entry>) -> Unit = { entries = it }
@@ -180,127 +217,274 @@ private fun SettingsScreen(
         }
     }
 
-    val fmt = remember { SimpleDateFormat("HH:mm:ss", Locale.US) }
+    val fmt = remember { SimpleDateFormat("HH:mm:ss", Locale.getDefault()) }
     val dayFmt = remember { SimpleDateFormat("dd/MM HH:mm", Locale.getDefault()) }
 
     Column(
         Modifier
             .fillMaxSize()
+            .statusBarsPadding()
+            .navigationBarsPadding()
             .verticalScroll(rememberScrollState())
-            .padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(12.dp),
+            .padding(horizontal = 20.dp, vertical = 12.dp),
+        verticalArrangement = Arrangement.spacedBy(14.dp),
     ) {
-        Text("F7 Moto Actions", style = MaterialTheme.typography.headlineSmall)
-        Text(
-            "Software chop-chop + twist for POCO F7 (onyx). Motorola MMI sensors are absent; " +
-                "thresholds should be calibrated on-device.",
-            style = MaterialTheme.typography.bodyMedium,
-        )
-
-        RowToggle("Engine running", service) {
-            service = it
-            onToggleService(it)
-        }
-        RowToggle("Chop-Chop → flashlight", chop) {
-            chop = it
-            prefs.chopEnabled = it
-        }
-        RowToggle("Twist → camera", twist) {
-            twist = it
-            prefs.twistEnabled = it
-        }
-        RowToggle("Screen-off (IMU + wakelock)", screenOff) {
-            screenOff = it
-            prefs.screenOffEnabled = it
-        }
-        RowToggle("Verbose sensor logs", logs) {
-            logs = it
-            prefs.verboseLogs = it
-        }
-
-        Text("Battery / energia", style = MaterialTheme.typography.titleMedium)
-        Text(
-            "Modo agora: ${energySnap.imuMode} · wakelock=${energySnap.wakeLockHeldNow}\n" +
-                "Screen-off IMU: ${formatDuration(energySnap.screenOffImuMs)}\n" +
-                "Interactive IMU: ${formatDuration(energySnap.interactiveImuMs)}\n" +
-                "WakeLock total: ${formatDuration(energySnap.wakeLockMs)}\n" +
-                "Gestos: chop=${energySnap.chopCount} twist=${energySnap.twistCount}\n" +
-                "Estimativa timers: ~${"%.1f".format(energySnap.estimatedMahFromTimers)} mAh " +
-                "(${EnergyMonitor.EST_MA_SCREEN_OFF_IMU.toInt()} mA off / " +
-                "${EnergyMonitor.EST_MA_INTERACTIVE_IMU.toInt()} mA on)\n" +
-                "Coulomb Δ: " +
-                (energySnap.chargeDeltaUah?.let { "${"%.1f".format(it / 1000.0)} mAh" } ?: "n/d") +
-                " · reset ${dayFmt.format(Date(energySnap.resetAtWallMs))}",
-            style = MaterialTheme.typography.bodySmall,
-        )
-        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            OutlinedButton(onClick = { energy.reset() }) { Text("Reset energia") }
-            OutlinedButton(onClick = onOpenSystemBattery) { Text("App info / bateria") }
-        }
-
-        Text("Sensitivity ×${"%.2f".format(sens)}")
-        Slider(
-            value = sens,
-            onValueChange = {
-                sens = it
-                prefs.sensitivity = it
-            },
-            valueRange = 0.5f..2.0f,
-        )
-
-        Text("Cooldown ${cooldown.toInt()} ms")
-        Slider(
-            value = cooldown,
-            onValueChange = {
-                cooldown = it
-                prefs.cooldownMs = it.toLong()
-            },
-            valueRange = 400f..5000f,
-        )
-
-        Text("Calibration", style = MaterialTheme.typography.titleMedium)
-        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            FilterChip(
-                selected = captureLabel == "chop",
-                onClick = { captureLabel = "chop" },
-                label = { Text("chop") },
-            )
-            FilterChip(
-                selected = captureLabel == "twist",
-                onClick = { captureLabel = "twist" },
-                label = { Text("twist") },
-            )
-            FilterChip(
-                selected = captureLabel == "walk",
-                onClick = { captureLabel = "walk" },
-                label = { Text("walk") },
-            )
-        }
-        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            Button(
-                onClick = {
-                    capturing = !capturing
-                    onCapture(captureLabel, capturing)
-                },
-            ) {
-                Text(if (capturing) "Stop capture" else "Record samples")
-            }
-            OutlinedButton(
-                onClick = { calibNote = onApplyCalibration() },
-            ) {
-                Text("Apply stats → thresholds")
-            }
-        }
-        if (calibNote.isNotBlank()) Text(calibNote)
-
-        Text("Event log", style = MaterialTheme.typography.titleMedium)
-        entries.asReversed().take(40).forEach { e ->
+        Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
             Text(
-                "${fmt.format(Date(e.ts))}  ${e.message}",
+                stringResource(R.string.app_name),
+                style = MaterialTheme.typography.headlineLarge,
+                color = MaterialTheme.colorScheme.onBackground,
+            )
+            Text(
+                stringResource(R.string.author_by),
+                style = MaterialTheme.typography.titleMedium,
+                color = MaterialTheme.colorScheme.primary,
+                fontWeight = FontWeight.SemiBold,
+            )
+            Text(
+                stringResource(R.string.app_tagline),
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+            Text(
+                stringResource(R.string.author_credit),
                 style = MaterialTheme.typography.bodySmall,
-                modifier = Modifier.fillMaxWidth(),
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+            Text(
+                stringResource(R.string.version_line, BuildConfig.VERSION_NAME),
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.outline,
             )
         }
+
+        SectionCard(title = stringResource(R.string.section_gestures)) {
+            RowToggle(stringResource(R.string.toggle_engine), service) {
+                service = it
+                onToggleService(it)
+            }
+            RowToggle(stringResource(R.string.toggle_chop), chop) {
+                chop = it
+                prefs.chopEnabled = it
+            }
+            RowToggle(stringResource(R.string.toggle_twist), twist) {
+                twist = it
+                prefs.twistEnabled = it
+            }
+            RowToggle(stringResource(R.string.toggle_screen_off), screenOff) {
+                screenOff = it
+                prefs.screenOffEnabled = it
+            }
+            RowToggle(stringResource(R.string.toggle_verbose), logs) {
+                logs = it
+                prefs.verboseLogs = it
+            }
+        }
+
+        SectionCard(title = stringResource(R.string.section_appearance)) {
+            Text(stringResource(R.string.theme_label), style = MaterialTheme.typography.labelLarge)
+            Row(
+                Modifier.horizontalScroll(rememberScrollState()),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+            ) {
+                FilterChip(
+                    selected = themeMode == 0,
+                    onClick = { onThemeMode(0) },
+                    label = { Text(stringResource(R.string.theme_system)) },
+                )
+                FilterChip(
+                    selected = themeMode == 1,
+                    onClick = { onThemeMode(1) },
+                    label = { Text(stringResource(R.string.theme_light)) },
+                )
+                FilterChip(
+                    selected = themeMode == 2,
+                    onClick = { onThemeMode(2) },
+                    label = { Text(stringResource(R.string.theme_dark)) },
+                )
+            }
+            Spacer(Modifier.height(8.dp))
+            Text(stringResource(R.string.language_label), style = MaterialTheme.typography.labelLarge)
+            Row(
+                Modifier.horizontalScroll(rememberScrollState()),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+            ) {
+                LocaleHelper.OPTIONS.forEach { opt ->
+                    val selected =
+                        if (opt.tag == "system") {
+                            language == "system" || language.isBlank()
+                        } else {
+                            language.equals(opt.tag, ignoreCase = true)
+                        }
+                    FilterChip(
+                        selected = selected,
+                        onClick = {
+                            language = opt.tag
+                            onLanguage(opt.tag)
+                        },
+                        label = { Text(opt.label) },
+                    )
+                }
+            }
+        }
+
+        SectionCard(title = stringResource(R.string.section_power)) {
+            val coulomb =
+                energySnap.chargeDeltaUah?.let { "%.1f mAh".format(it / 1000.0) }
+                    ?: stringResource(R.string.energy_na)
+            Text(
+                stringResource(
+                    R.string.energy_mode,
+                    energySnap.imuMode.name,
+                    energySnap.wakeLockHeldNow.toString(),
+                ),
+                style = MaterialTheme.typography.bodySmall,
+            )
+            Text(
+                stringResource(R.string.energy_screen_off, formatDuration(energySnap.screenOffImuMs)),
+                style = MaterialTheme.typography.bodySmall,
+            )
+            Text(
+                stringResource(R.string.energy_interactive, formatDuration(energySnap.interactiveImuMs)),
+                style = MaterialTheme.typography.bodySmall,
+            )
+            Text(
+                stringResource(R.string.energy_wakelock, formatDuration(energySnap.wakeLockMs)),
+                style = MaterialTheme.typography.bodySmall,
+            )
+            Text(
+                stringResource(R.string.energy_gestures, energySnap.chopCount, energySnap.twistCount),
+                style = MaterialTheme.typography.bodySmall,
+            )
+            Text(
+                stringResource(
+                    R.string.energy_estimate,
+                    energySnap.estimatedMahFromTimers,
+                    EnergyMonitor.EST_MA_SCREEN_OFF_IMU.toInt(),
+                    EnergyMonitor.EST_MA_INTERACTIVE_IMU.toInt(),
+                ),
+                style = MaterialTheme.typography.bodySmall,
+            )
+            Text(
+                stringResource(
+                    R.string.energy_coulomb,
+                    coulomb,
+                    dayFmt.format(Date(energySnap.resetAtWallMs)),
+                ),
+                style = MaterialTheme.typography.bodySmall,
+            )
+            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                OutlinedButton(onClick = { energy.reset() }) {
+                    Text(stringResource(R.string.btn_reset_energy))
+                }
+                OutlinedButton(onClick = onOpenSystemBattery) {
+                    Text(stringResource(R.string.btn_app_battery))
+                }
+            }
+        }
+
+        SectionCard(title = null) {
+            Text(stringResource(R.string.sensitivity, sens))
+            Slider(
+                value = sens,
+                onValueChange = {
+                    sens = it
+                    prefs.sensitivity = it
+                },
+                valueRange = 0.5f..2.0f,
+            )
+            Text(stringResource(R.string.cooldown, cooldown.toInt()))
+            Slider(
+                value = cooldown,
+                onValueChange = {
+                    cooldown = it
+                    prefs.cooldownMs = it.toLong()
+                },
+                valueRange = 400f..5000f,
+            )
+        }
+
+        SectionCard(title = stringResource(R.string.section_calibration)) {
+            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                FilterChip(
+                    selected = captureLabel == "chop",
+                    onClick = { captureLabel = "chop" },
+                    label = { Text(stringResource(R.string.chip_chop)) },
+                )
+                FilterChip(
+                    selected = captureLabel == "twist",
+                    onClick = { captureLabel = "twist" },
+                    label = { Text(stringResource(R.string.chip_twist)) },
+                )
+                FilterChip(
+                    selected = captureLabel == "walk",
+                    onClick = { captureLabel = "walk" },
+                    label = { Text(stringResource(R.string.chip_walk)) },
+                )
+            }
+            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                Button(
+                    onClick = {
+                        capturing = !capturing
+                        onCapture(captureLabel, capturing)
+                    },
+                ) {
+                    Text(
+                        if (capturing) {
+                            stringResource(R.string.btn_stop_capture)
+                        } else {
+                            stringResource(R.string.btn_record)
+                        },
+                    )
+                }
+                OutlinedButton(onClick = { calibNote = onApplyCalibration() }) {
+                    Text(stringResource(R.string.btn_apply_calibration))
+                }
+            }
+            if (calibNote.isNotBlank()) Text(calibNote, style = MaterialTheme.typography.bodySmall)
+        }
+
+        SectionCard(title = stringResource(R.string.section_log)) {
+            entries.asReversed().take(40).forEach { e ->
+                Text(
+                    "${fmt.format(Date(e.ts))}  ${e.message}",
+                    style = MaterialTheme.typography.bodySmall,
+                    modifier = Modifier.fillMaxWidth(),
+                )
+            }
+        }
+
+        Spacer(Modifier.height(8.dp))
+        Text(
+            stringResource(R.string.author_credit),
+            style = MaterialTheme.typography.labelLarge,
+            color = MaterialTheme.colorScheme.primary,
+            modifier = Modifier.padding(bottom = 12.dp),
+        )
+    }
+}
+
+@Composable
+private fun SectionCard(
+    title: String?,
+    content: @Composable () -> Unit,
+) {
+    Column(
+        Modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(16.dp))
+            .background(MaterialTheme.colorScheme.surface)
+            .padding(16.dp),
+        verticalArrangement = Arrangement.spacedBy(10.dp),
+    ) {
+        if (title != null) {
+            Text(
+                title,
+                style = MaterialTheme.typography.titleMedium,
+                color = MaterialTheme.colorScheme.onSurface,
+            )
+        }
+        content()
     }
 }
 
@@ -311,7 +495,11 @@ private fun RowToggle(label: String, checked: Boolean, onChange: (Boolean) -> Un
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically,
     ) {
-        Text(label)
+        Text(
+            label,
+            style = MaterialTheme.typography.bodyMedium,
+            modifier = Modifier.weight(1f).padding(end = 12.dp),
+        )
         Switch(checked = checked, onCheckedChange = onChange)
     }
 }

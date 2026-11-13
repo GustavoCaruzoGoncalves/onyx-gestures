@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">F7 Moto Actions</string>
+    <string name="notification_channel">Движок жестов</string>
+    <string name="notification_title">F7 Moto Actions</string>
+    <string name="notification_text">Ожидание жестов chop-chop и twist</string>
+    <string name="camera_launch_channel">Быстрый снимок</string>
+    <string name="camera_launch_notification">Открытие камеры…</string>
+
+    <string name="author_by">автор GustavoCaruzo</string>
+    <string name="author_credit">Приложение и модуль KernelSU — GustavoCaruzo</string>
+    <string name="app_tagline">Chop-Chop и Twist для POCO F7 (onyx). Настройте пороги на устройстве.</string>
+
+    <string name="section_gestures">Жесты</string>
+    <string name="section_power">Батарея</string>
+    <string name="section_appearance">Оформление</string>
+    <string name="section_calibration">Калибровка</string>
+    <string name="section_log">Журнал событий</string>
+
+    <string name="toggle_engine">Движок включён</string>
+    <string name="toggle_chop">Chop-Chop → фонарик</string>
+    <string name="toggle_twist">Twist → камера</string>
+    <string name="toggle_screen_off">Экран выкл. (IMU + wakelock)</string>
+    <string name="toggle_verbose">Подробные логи датчиков</string>
+
+    <string name="theme_label">Тема</string>
+    <string name="theme_system">Системная</string>
+    <string name="theme_light">Светлая</string>
+    <string name="theme_dark">Тёмная</string>
+    <string name="language_label">Язык</string>
+
+    <string name="energy_mode">Режим сейчас: %1$s · wakelock=%2$s</string>
+    <string name="energy_screen_off">IMU экран выкл.: %1$s</string>
+    <string name="energy_interactive">IMU интерактив: %1$s</string>
+    <string name="energy_wakelock">WakeLock всего: %1$s</string>
+    <string name="energy_gestures">Жесты: chop=%1$d twist=%2$d</string>
+    <string name="energy_estimate">Оценка: ~%1$.1f мА·ч (%2$d мА выкл / %3$d мА вкл)</string>
+    <string name="energy_coulomb">Кулон Δ: %1$s · сброс %2$s</string>
+    <string name="energy_na">н/д</string>
+    <string name="btn_reset_energy">Сброс энергии</string>
+    <string name="btn_app_battery">Сведения о приложении / батарея</string>
+
+    <string name="sensitivity">Чувствительность ×%1$.2f</string>
+    <string name="cooldown">Пауза %1$d мс</string>
+
+    <string name="chip_chop">chop</string>
+    <string name="chip_twist">twist</string>
+    <string name="chip_walk">ходьба</string>
+    <string name="btn_record">Записать образцы</string>
+    <string name="btn_stop_capture">Стоп записи</string>
+    <string name="btn_apply_calibration">Применить статистику → пороги</string>
+
+    <string name="version_line">Версия %1$s</string>
+</resources>

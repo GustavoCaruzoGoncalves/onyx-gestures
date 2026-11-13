@@ -2,6 +2,19 @@
 
 All notable changes to this project are documented in this file.
 
+## [1.2.2] — 2026-11-13
+
+### Added
+- Dark / light / system theme.
+- Locales: English, Portuguese, Spanish, Simplified Chinese, Traditional Chinese, Hindi, Russian (in-app picker + system).
+- Clear **GustavoCaruzo** authorship in the UI and module metadata.
+
+### Fixed
+- Content drawing under the status bar (edge-to-edge + system bar padding).
+
+### Changed
+- Settings UI restyled (amber / charcoal palette, section cards).
+
 ## [1.2.1] — 2026-11-13
 
 ### Changed

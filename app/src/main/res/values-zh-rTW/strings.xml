@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">F7 Moto Actions</string>
+    <string name="notification_channel">手勢引擎</string>
+    <string name="notification_title">F7 Moto Actions</string>
+    <string name="notification_text">正在監聽 chop-chop 與 twist 手勢</string>
+    <string name="camera_launch_channel">快速拍攝</string>
+    <string name="camera_launch_notification">正在開啟相機…</string>
+
+    <string name="author_by">作者 GustavoCaruzo</string>
+    <string name="author_credit">應用程式與 KernelSU 模組由 GustavoCaruzo 製作</string>
+    <string name="app_tagline">適用於 POCO F7 (onyx) 的 Chop-Chop 與 Twist。請在裝置上校正閾值。</string>
+
+    <string name="section_gestures">手勢</string>
+    <string name="section_power">電池</string>
+    <string name="section_appearance">外觀</string>
+    <string name="section_calibration">校正</string>
+    <string name="section_log">事件紀錄</string>
+
+    <string name="toggle_engine">引擎執行中</string>
+    <string name="toggle_chop">Chop-Chop → 手電筒</string>
+    <string name="toggle_twist">Twist → 相機</string>
+    <string name="toggle_screen_off">螢幕關閉監聽（IMU + wakelock）</string>
+    <string name="toggle_verbose">詳細感測器日誌</string>
+
+    <string name="theme_label">主題</string>
+    <string name="theme_system">跟隨系統</string>
+    <string name="theme_light">淺色</string>
+    <string name="theme_dark">深色</string>
+    <string name="language_label">語言</string>
+
+    <string name="energy_mode">目前模式：%1$s · wakelock=%2$s</string>
+    <string name="energy_screen_off">關螢幕 IMU：%1$s</string>
+    <string name="energy_interactive">亮螢幕 IMU：%1$s</string>
+    <string name="energy_wakelock">WakeLock 合計：%1$s</string>
+    <string name="energy_gestures">手勢：chop=%1$d twist=%2$d</string>
+    <string name="energy_estimate">計時估算：~%1$.1f mAh（關螢 %2$d mA / 亮螢 %3$d mA）</string>
+    <string name="energy_coulomb">庫侖 Δ：%1$s · 重設 %2$s</string>
+    <string name="energy_na">無</string>
+    <string name="btn_reset_energy">重設電量統計</string>
+    <string name="btn_app_battery">應用程式資訊 / 電池</string>
+
+    <string name="sensitivity">靈敏度 ×%1$.2f</string>
+    <string name="cooldown">冷卻 %1$d 毫秒</string>
+
+    <string name="chip_chop">chop</string>
+    <string name="chip_twist">twist</string>
+    <string name="chip_walk">步行</string>
+    <string name="btn_record">錄製樣本</string>
+    <string name="btn_stop_capture">停止錄製</string>
+    <string name="btn_apply_calibration">套用統計 → 閾值</string>
+
+    <string name="version_line">版本 %1$s</string>
+</resources>

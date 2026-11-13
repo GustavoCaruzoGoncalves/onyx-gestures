@@ -6,5 +6,49 @@
     <string name="notification_text">Listening for chop-chop and twist gestures</string>
     <string name="camera_launch_channel">Quick Capture</string>
     <string name="camera_launch_notification">Opening camera…</string>
-</resources>
 
+    <string name="author_by">by GustavoCaruzo</string>
+    <string name="author_credit">App &amp; KernelSU module by GustavoCaruzo</string>
+    <string name="app_tagline">Chop-Chop and Twist for POCO F7 (onyx). Calibrate thresholds on-device.</string>
+
+    <string name="section_gestures">Gestures</string>
+    <string name="section_power">Battery</string>
+    <string name="section_appearance">Appearance</string>
+    <string name="section_calibration">Calibration</string>
+    <string name="section_log">Event log</string>
+
+    <string name="toggle_engine">Engine running</string>
+    <string name="toggle_chop">Chop-Chop → flashlight</string>
+    <string name="toggle_twist">Twist → camera</string>
+    <string name="toggle_screen_off">Screen-off (IMU + wakelock)</string>
+    <string name="toggle_verbose">Verbose sensor logs</string>
+
+    <string name="theme_label">Theme</string>
+    <string name="theme_system">System</string>
+    <string name="theme_light">Light</string>
+    <string name="theme_dark">Dark</string>
+    <string name="language_label">Language</string>
+
+    <string name="energy_mode">Mode now: %1$s · wakelock=%2$s</string>
+    <string name="energy_screen_off">Screen-off IMU: %1$s</string>
+    <string name="energy_interactive">Interactive IMU: %1$s</string>
+    <string name="energy_wakelock">WakeLock total: %1$s</string>
+    <string name="energy_gestures">Gestures: chop=%1$d twist=%2$d</string>
+    <string name="energy_estimate">Timer estimate: ~%1$.1f mAh (%2$d mA off / %3$d mA on)</string>
+    <string name="energy_coulomb">Coulomb Δ: %1$s · reset %2$s</string>
+    <string name="energy_na">n/a</string>
+    <string name="btn_reset_energy">Reset energy</string>
+    <string name="btn_app_battery">App info / battery</string>
+
+    <string name="sensitivity">Sensitivity ×%1$.2f</string>
+    <string name="cooldown">Cooldown %1$d ms</string>
+
+    <string name="chip_chop">chop</string>
+    <string name="chip_twist">twist</string>
+    <string name="chip_walk">walk</string>
+    <string name="btn_record">Record samples</string>
+    <string name="btn_stop_capture">Stop capture</string>
+    <string name="btn_apply_calibration">Apply stats → thresholds</string>
+
+    <string name="version_line">Version %1$s</string>
+</resources>

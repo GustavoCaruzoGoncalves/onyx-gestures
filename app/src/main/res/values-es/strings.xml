@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">F7 Moto Actions</string>
+    <string name="notification_channel">Motor de gestos</string>
+    <string name="notification_title">F7 Moto Actions</string>
+    <string name="notification_text">Escuchando gestos chop-chop y twist</string>
+    <string name="camera_launch_channel">Captura rápida</string>
+    <string name="camera_launch_notification">Abriendo cámara…</string>
+
+    <string name="author_by">por GustavoCaruzo</string>
+    <string name="author_credit">App y módulo KernelSU por GustavoCaruzo</string>
+    <string name="app_tagline">Chop-Chop y Twist para POCO F7 (onyx). Calibra umbrales en el dispositivo.</string>
+
+    <string name="section_gestures">Gestos</string>
+    <string name="section_power">Batería</string>
+    <string name="section_appearance">Apariencia</string>
+    <string name="section_calibration">Calibración</string>
+    <string name="section_log">Registro de eventos</string>
+
+    <string name="toggle_engine">Motor activo</string>
+    <string name="toggle_chop">Chop-Chop → linterna</string>
+    <string name="toggle_twist">Twist → cámara</string>
+    <string name="toggle_screen_off">Pantalla apagada (IMU + wakelock)</string>
+    <string name="toggle_verbose">Registros detallados de sensores</string>
+
+    <string name="theme_label">Tema</string>
+    <string name="theme_system">Sistema</string>
+    <string name="theme_light">Claro</string>
+    <string name="theme_dark">Oscuro</string>
+    <string name="language_label">Idioma</string>
+
+    <string name="energy_mode">Modo ahora: %1$s · wakelock=%2$s</string>
+    <string name="energy_screen_off">IMU pantalla off: %1$s</string>
+    <string name="energy_interactive">IMU interactivo: %1$s</string>
+    <string name="energy_wakelock">WakeLock total: %1$s</string>
+    <string name="energy_gestures">Gestos: chop=%1$d twist=%2$d</string>
+    <string name="energy_estimate">Estimación: ~%1$.1f mAh (%2$d mA off / %3$d mA on)</string>
+    <string name="energy_coulomb">Coulomb Δ: %1$s · reset %2$s</string>
+    <string name="energy_na">n/d</string>
+    <string name="btn_reset_energy">Restablecer energía</string>
+    <string name="btn_app_battery">Info de la app / batería</string>
+
+    <string name="sensitivity">Sensibilidad ×%1$.2f</string>
+    <string name="cooldown">Cooldown %1$d ms</string>
+
+    <string name="chip_chop">chop</string>
+    <string name="chip_twist">twist</string>
+    <string name="chip_walk">caminar</string>
+    <string name="btn_record">Grabar muestras</string>
+    <string name="btn_stop_capture">Detener captura</string>
+    <string name="btn_apply_calibration">Aplicar stats → umbrales</string>
+
+    <string name="version_line">Versión %1$s</string>
+</resources>

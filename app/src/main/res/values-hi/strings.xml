@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">F7 Moto Actions</string>
+    <string name="notification_channel">जेस्चर इंजन</string>
+    <string name="notification_title">F7 Moto Actions</string>
+    <string name="notification_text">chop-chop और twist जेस्चर सुन रहा है</string>
+    <string name="camera_launch_channel">क्विक कैप्चर</string>
+    <string name="camera_launch_notification">कैमरा खुल रहा है…</string>
+
+    <string name="author_by">GustavoCaruzo द्वारा</string>
+    <string name="author_credit">ऐप और KernelSU मॉड्यूल GustavoCaruzo द्वारा</string>
+    <string name="app_tagline">POCO F7 (onyx) के लिए Chop-Chop और Twist। थ्रेशोल्ड डिवाइस पर कैलिब्रेट करें।</string>
+
+    <string name="section_gestures">जेस्चर</string>
+    <string name="section_power">बैटरी</string>
+    <string name="section_appearance">दिखावट</string>
+    <string name="section_calibration">कैलिब्रेशन</string>
+    <string name="section_log">इवेंट लॉग</string>
+
+    <string name="toggle_engine">इंजन चालू</string>
+    <string name="toggle_chop">Chop-Chop → फ्लैशलाइट</string>
+    <string name="toggle_twist">Twist → कैमरा</string>
+    <string name="toggle_screen_off">स्क्रीन बंद (IMU + wakelock)</string>
+    <string name="toggle_verbose">विस्तृत सेंसर लॉग</string>
+
+    <string name="theme_label">थीम</string>
+    <string name="theme_system">सिस्टम</string>
+    <string name="theme_light">लाइट</string>
+    <string name="theme_dark">डार्क</string>
+    <string name="language_label">भाषा</string>
+
+    <string name="energy_mode">अभी मोड: %1$s · wakelock=%2$s</string>
+    <string name="energy_screen_off">स्क्रीन-ऑफ IMU: %1$s</string>
+    <string name="energy_interactive">इंटरैक्टिव IMU: %1$s</string>
+    <string name="energy_wakelock">WakeLock कुल: %1$s</string>
+    <string name="energy_gestures">जेस्चर: chop=%1$d twist=%2$d</string>
+    <string name="energy_estimate">अनुमान: ~%1$.1f mAh (%2$d mA off / %3$d mA on)</string>
+    <string name="energy_coulomb">Coulomb Δ: %1$s · रीसेट %2$s</string>
+    <string name="energy_na">उपलब्ध नहीं</string>
+    <string name="btn_reset_energy">ऊर्जा रीसेट</string>
+    <string name="btn_app_battery">ऐप जानकारी / बैटरी</string>
+
+    <string name="sensitivity">संवेदनशीलता ×%1$.2f</string>
+    <string name="cooldown">कूलडाउन %1$d ms</string>
+
+    <string name="chip_chop">chop</string>
+    <string name="chip_twist">twist</string>
+    <string name="chip_walk">चलना</string>
+    <string name="btn_record">नमूने रिकॉर्ड करें</string>
+    <string name="btn_stop_capture">कैप्चर रोकें</string>
+    <string name="btn_apply_calibration">आँकड़े लागू → थ्रेशोल्ड</string>
+
+    <string name="version_line">संस्करण %1$s</string>
+</resources>
