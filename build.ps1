@@ -4,7 +4,7 @@ param(
     [switch]$DebugApk
 )
 
-$ErrorActionPreference = "Continue"
+$ErrorActionPreference = "Stop"
 $Root = Split-Path -Parent $MyInvocation.MyCommand.Path
 $Sdk = $env:ANDROID_HOME
 if (-not $Sdk) { $Sdk = Join-Path $env:LOCALAPPDATA "Android\Sdk" }
@@ -96,6 +96,8 @@ with zipfile.ZipFile(out, 'w', compression=zipfile.ZIP_DEFLATED) as zf:
         if not path.is_file():
             continue
         rel = path.relative_to(mod).as_posix()
+        if rel.startswith('META-INF'):
+            continue
         zf.write(path, rel)
 print(out)
 "@

@@ -28,6 +28,14 @@ class Prefs(context: Context) {
         get() = sp.getBoolean(KEY_TWIST, true)
         set(v) = sp.edit { putBoolean(KEY_TWIST, v) }
 
+    /**
+     * When true (default), use [org.f7.motoactions.detect.TemporalTwistDetector].
+     * When false, use legacy [org.f7.motoactions.detect.TwistDetector] (rollback).
+     */
+    var useTemporalTwist: Boolean
+        get() = sp.getBoolean(KEY_TWIST_TEMPORAL, DEFAULT_TWIST_TEMPORAL)
+        set(v) = sp.edit { putBoolean(KEY_TWIST_TEMPORAL, v) }
+
     var screenOffEnabled: Boolean
         get() = sp.getBoolean(KEY_SCREEN_OFF, true)
         set(v) = sp.edit { putBoolean(KEY_SCREEN_OFF, v) }
@@ -157,6 +165,7 @@ class Prefs(context: Context) {
         const val KEY_SERVICE = "service_enabled"
         const val KEY_CHOP = "chop_enabled"
         const val KEY_TWIST = "twist_enabled"
+        const val KEY_TWIST_TEMPORAL = "twist_temporal"
         const val KEY_SCREEN_OFF = "screen_off_enabled"
         const val KEY_LOGS = "verbose_logs"
         const val KEY_SENS = "sensitivity"
@@ -191,5 +200,7 @@ class Prefs(context: Context) {
         const val DEFAULT_COOLDOWN_MS = 1000L
         const val DEFAULT_HZ = 100
         const val DEFAULT_TWIST_ACCEL_VETO = 22f
+        /** Production default: temporal sequence detector. */
+        const val DEFAULT_TWIST_TEMPORAL = true
     }
 }

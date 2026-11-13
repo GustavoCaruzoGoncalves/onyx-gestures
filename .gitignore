@@ -1,4 +1,4 @@
-﻿# Build
+# Build
 /.gradle/
 /build/
 /app/build/
@@ -12,17 +12,18 @@
 # Local SDK path (never publish)
 /local.properties
 
-# Release binaries live on GitHub Releases
-/dist/*.zip
+# Intermediate / personal artifacts
 /dist/*.apk
+/dist/battery/raw_personal/
+*.hprof
 
-# Keep checksums + notes
-!/dist/*.sha256
-!/dist/README.md
-
-# OS / Python
+# OS
 Thumbs.db
 Desktop.ini
+
+# Python
 __pycache__/
 *.pyc
-*.hprof
+
+# Node (if added later)
+node_modules/
