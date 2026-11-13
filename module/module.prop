@@ -1,7 +1,7 @@
 id=f7_moto_actions
-name=F7 Moto Actions
-version=v1.2.3
-versionCode=24
+name=Onyx Gestures
+version=v1.3.0
+versionCode=25
 author=GustavoCaruzo
-description=Chop/Twist for POCO F7 by GustavoCaruzo. v1.2.3: in-app + KernelSU updates from GitHub.
-updateJson=https://raw.githubusercontent.com/GustavoCaruzoGoncalves/moto-actions-poco-f7/main/module/update.json
+description=Onyx Gestures by GustavoCaruzo — independent gesture control (flashlight + camera). Not affiliated with device OEMs.
+updateJson=https://raw.githubusercontent.com/GustavoCaruzoGoncalves/onyx-gestures/main/module/update.json

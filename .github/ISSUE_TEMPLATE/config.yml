@@ -1,5 +1,6 @@
-blank_issues_enabled: true
+﻿blank_issues_enabled: true
 contact_links:
   - name: Compatibility questions
-    url: https://github.com/GustavoCaruzoGoncalves/moto-actions-poco-f7/blob/main/docs/COMPATIBILITY.md
+    url: https://github.com/GustavoCaruzoGoncalves/onyx-gestures/blob/main/docs/COMPATIBILITY.md
     about: Read the compatibility matrix before asking about Magisk/APatch or other devices.
+

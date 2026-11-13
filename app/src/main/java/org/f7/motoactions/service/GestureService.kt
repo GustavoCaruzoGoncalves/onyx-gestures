@@ -103,7 +103,7 @@ class GestureService : Service() {
             NotificationCompat.Builder(this, MotoActionsApp.CHANNEL_ID)
                 .setContentTitle(getString(R.string.notification_title))
                 .setContentText(getString(R.string.notification_text))
-                .setSmallIcon(R.drawable.ic_launcher)
+                .setSmallIcon(R.drawable.ic_notification)
                 .setContentIntent(pi)
                 .setOngoing(true)
                 .setSilent(true)

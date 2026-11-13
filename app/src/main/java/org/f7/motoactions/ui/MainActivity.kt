@@ -73,6 +73,7 @@ import org.f7.motoactions.util.EventLog
 import org.f7.motoactions.util.LocaleHelper
 import org.f7.motoactions.util.ModuleUpdater
 import org.f7.motoactions.util.Prefs
+import org.f7.motoactions.util.RootStatus
 import org.f7.motoactions.util.UpdateCheckResult
 import org.f7.motoactions.util.UpdateInfo
 import java.text.SimpleDateFormat
@@ -269,6 +270,11 @@ private fun SettingsScreen(
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
             Text(
+                stringResource(R.string.disclaimer_short),
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.outline,
+            )
+            Text(
                 stringResource(R.string.version_line, BuildConfig.VERSION_NAME),
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.outline,
@@ -346,10 +352,20 @@ private fun SettingsScreen(
                 }
                 OutlinedButton(
                     enabled = !updateBusy,
-                    onClick = { ModuleUpdater.openKernelSu(context) },
+                    onClick = {
+                        if (!ModuleUpdater.openKernelSu(context)) {
+                            updateStatus = context.getString(R.string.kernelsu_not_found)
+                        }
+                    },
                 ) {
                     Text(stringResource(R.string.btn_open_kernelsu))
                 }
+            }
+            OutlinedButton(
+                enabled = !updateBusy,
+                onClick = { ModuleUpdater.openProjectReleases(context) },
+            ) {
+                Text(stringResource(R.string.btn_open_releases))
             }
             Button(
                 enabled = !updateBusy,
@@ -357,9 +373,17 @@ private fun SettingsScreen(
                     scope.launch {
                         updateBusy = true
                         runCatching {
-                            if (!withContext(Dispatchers.IO) { ModuleUpdater.hasRoot() }) {
-                                updateStatus = context.getString(R.string.update_no_root)
-                                return@runCatching
+                            when (withContext(Dispatchers.IO) { ModuleUpdater.probeRoot() }) {
+                                RootStatus.Unavailable -> {
+                                    updateStatus =
+                                        context.getString(R.string.update_root_unavailable)
+                                    return@runCatching
+                                }
+                                RootStatus.Denied -> {
+                                    updateStatus = context.getString(R.string.update_root_denied)
+                                    return@runCatching
+                                }
+                                RootStatus.Granted -> Unit
                             }
                             updateStatus = context.getString(R.string.update_checking)
                             val info =
@@ -369,7 +393,11 @@ private fun SettingsScreen(
                                 context.getString(R.string.update_downloading, info.version)
                             val zip =
                                 withContext(Dispatchers.IO) {
-                                    ModuleUpdater.downloadZip(context, info.zipUrl)
+                                    ModuleUpdater.downloadZip(
+                                        context,
+                                        info.zipUrl,
+                                        expectedSha256 = info.sha256,
+                                    )
                                 }
                             updateStatus = context.getString(R.string.update_installing)
                             val log =
@@ -381,12 +409,16 @@ private fun SettingsScreen(
                                 context.getString(R.string.update_installed, info.version)
                             showRebootDialog = true
                         }.onFailure {
+                            val msg = it.message ?: it.toString()
                             updateStatus =
-                                context.getString(
-                                    R.string.update_failed,
-                                    it.message ?: it.toString(),
-                                )
-                            EventLog.add("update failed: ${it.message}")
+                                when {
+                                    msg.contains("ROOT_DENIED") ->
+                                        context.getString(R.string.update_root_denied)
+                                    msg.contains("ROOT_UNAVAILABLE") ->
+                                        context.getString(R.string.update_root_unavailable)
+                                    else -> context.getString(R.string.update_failed, msg)
+                                }
+                            EventLog.add("update failed: $msg")
                         }
                         updateBusy = false
                     }

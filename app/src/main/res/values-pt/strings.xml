@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">F7 Moto Actions</string>
+    <string name="app_name">Onyx Gestures</string>
     <string name="notification_channel">Motor de gestos</string>
-    <string name="notification_title">F7 Moto Actions</string>
+    <string name="notification_title">Onyx Gestures</string>
     <string name="notification_text">Ouvindo gestos chop-chop e twist</string>
-    <string name="camera_launch_channel">Captura rápida</string>
+    <string name="camera_launch_channel">Gesto da câmera</string>
     <string name="camera_launch_notification">Abrindo câmera…</string>
 
     <string name="author_by">por GustavoCaruzo</string>
     <string name="author_credit">App e módulo KernelSU por GustavoCaruzo</string>
-    <string name="app_tagline">Chop-Chop e Twist para POCO F7 (onyx). Calibre os limiares no aparelho.</string>
+    <string name="app_tagline">Projeto independente de gestos Android para dispositivos compatíveis. Calibre no aparelho.</string>
 
     <string name="section_gestures">Gestos</string>
     <string name="section_updates">Atualizações</string>
     <string name="btn_check_updates">Buscar atualizações</string>
     <string name="btn_install_update">Instalar última do GitHub</string>
-    <string name="btn_open_kernelsu">Abrir KernelSU</string>
+    <string name="btn_open_kernelsu">Abrir KernelSU Manager</string>
     <string name="update_checking">Consultando GitHub…</string>
     <string name="update_downloading">Baixando %1$s…</string>
     <string name="update_installing">Instalando módulo com root…</string>
@@ -27,7 +27,6 @@
     <string name="update_reboot_message">O módulo KernelSU foi instalado. Reinicie para aplicar o overlay e manter tudo sincronizado.</string>
     <string name="update_reboot_yes">Reiniciar</string>
     <string name="update_reboot_later">Depois</string>
-    <string name="update_no_root">Root / ksud necessários para instalar pelo app. Use o KernelSU Manager.</string>
     <string name="update_hint">O KernelSU também pode atualizar este módulo via updateJson das releases do GitHub.</string>
     <string name="section_power">Bateria</string>
     <string name="section_appearance">Aparência</string>
@@ -35,8 +34,8 @@
     <string name="section_log">Registro de eventos</string>
 
     <string name="toggle_engine">Motor ativo</string>
-    <string name="toggle_chop">Chop-Chop → lanterna</string>
-    <string name="toggle_twist">Twist → câmera</string>
+    <string name="toggle_chop">Dois golpes → lanterna</string>
+    <string name="toggle_twist">Duas rotações do pulso → câmera</string>
     <string name="toggle_screen_off">Tela desligada (IMU + wakelock)</string>
     <string name="toggle_verbose">Logs detalhados dos sensores</string>
 
@@ -68,4 +67,6 @@
     <string name="btn_apply_calibration">Aplicar stats → limiares</string>
 
     <string name="version_line">Versão %1$s</string>
+    <string name="update_root_denied">Esta operação precisa de root. Autorize o Onyx Gestures no KernelSU Manager e tente novamente.</string>
+    <string name="disclaimer_short">Projeto comunitário independente — sem vínculo com Motorola, Lenovo, Xiaomi ou outros fabricantes.</string>
 </resources>

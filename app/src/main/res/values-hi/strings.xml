@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">F7 Moto Actions</string>
+    <string name="app_name">Onyx Gestures</string>
     <string name="notification_channel">जेस्चर इंजन</string>
-    <string name="notification_title">F7 Moto Actions</string>
+    <string name="notification_title">Onyx Gestures</string>
     <string name="notification_text">chop-chop और twist जेस्चर सुन रहा है</string>
-    <string name="camera_launch_channel">क्विक कैप्चर</string>
+    <string name="camera_launch_channel">कैमरा जेस्चर</string>
     <string name="camera_launch_notification">कैमरा खुल रहा है…</string>
 
     <string name="author_by">GustavoCaruzo द्वारा</string>
     <string name="author_credit">ऐप और KernelSU मॉड्यूल GustavoCaruzo द्वारा</string>
-    <string name="app_tagline">POCO F7 (onyx) के लिए Chop-Chop और Twist। थ्रेशोल्ड डिवाइस पर कैलिब्रेट करें।</string>
+    <string name="app_tagline">संगत उपकरणों के लिए स्वतंत्र Android जेस्चर प्रोजेक्ट। डिवाइस पर कैलिब्रेट करें।</string>
 
     <string name="section_gestures">जेस्चर</string>
     <string name="section_updates">अपडेट</string>
     <string name="btn_check_updates">अपडेट खोजें</string>
     <string name="btn_install_update">GitHub से नवीनतम इंस्टॉल करें</string>
-    <string name="btn_open_kernelsu">KernelSU खोलें</string>
+    <string name="btn_open_kernelsu">KernelSU Manager खोलें</string>
     <string name="update_checking">GitHub जाँच…</string>
     <string name="update_downloading">डाउनलोड %1$s…</string>
     <string name="update_installing">root से मॉड्यूल इंस्टॉल…</string>
@@ -27,7 +27,6 @@
     <string name="update_reboot_message">KernelSU मॉड्यूल इंस्टॉल हो गया। Overlay लागू करने के लिए रीबूट करें।</string>
     <string name="update_reboot_yes">रीबूट</string>
     <string name="update_reboot_later">बाद में</string>
-    <string name="update_no_root">ऐप से इंस्टॉल के लिए root / ksud चाहिए। KernelSU Manager उपयोग करें।</string>
     <string name="update_hint">KernelSU GitHub releases के updateJson से भी इस मॉड्यूल को अपडेट कर सकता है।</string>
     <string name="section_power">बैटरी</string>
     <string name="section_appearance">दिखावट</string>
@@ -35,8 +34,8 @@
     <string name="section_log">इवेंट लॉग</string>
 
     <string name="toggle_engine">इंजन चालू</string>
-    <string name="toggle_chop">Chop-Chop → फ्लैशलाइट</string>
-    <string name="toggle_twist">Twist → कैमरा</string>
+    <string name="toggle_chop">दो बार चॉप → फ्लैशलाइट</string>
+    <string name="toggle_twist">कलाई का दोहरा घुमाव → कैमरा</string>
     <string name="toggle_screen_off">स्क्रीन बंद (IMU + wakelock)</string>
     <string name="toggle_verbose">विस्तृत सेंसर लॉग</string>
 
@@ -68,4 +67,6 @@
     <string name="btn_apply_calibration">आँकड़े लागू → थ्रेशोल्ड</string>
 
     <string name="version_line">संस्करण %1$s</string>
+    <string name="update_root_denied">इस क्रिया के लिए root चाहिए। KernelSU Manager में Onyx Gestures को अनुमति दें और फिर कोशिश करें।</string>
+    <string name="disclaimer_short">स्वतंत्र सामुदायिक प्रोजेक्ट — Motorola, Lenovo, Xiaomi या अन्य निर्माताओं से संबद्ध नहीं।</string>
 </resources>

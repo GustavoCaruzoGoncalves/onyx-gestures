@@ -1,9 +1,9 @@
-# Installation
+﻿# Installation
 
 ## Requirements
 
 - POCO F7 (`onyx`)
-- **KernelSU** (LKM) + KernelSU Manager — **only tested root solution**
+- **KernelSU** (LKM) + KernelSU Manager â€” **only tested root solution**
 - SELinux may remain **Enforcing**
 - Camera permission for the app
 - Reboot after module install
@@ -18,12 +18,12 @@
    ```
 
 3. Copy the ZIP to the phone (Downloads is fine).
-4. KernelSU Manager → **Modules** → **Install from storage** → select the ZIP.
+4. KernelSU Manager â†’ **Modules** â†’ **Install from storage** â†’ select the ZIP.
 5. **Reboot**.
-6. Open **F7 Moto Actions**:
+6. Open **Onyx Gestures**:
    - Grant **Camera** and **Notifications**
    - Allow unrestricted battery / ignore optimizations if the ROM offers it
-   - Confirm the persistent “Listening for chop-chop and twist gestures” notification
+   - Confirm the persistent â€œListening for chop-chop and twist gesturesâ€ notification
 7. Test Chop-Chop (torch) and Twist (camera) with the screen on.
 
 On PixelOS onyx, `/system` is often full. The module still bundles a priv-app path, but `customize.sh` / `service.sh` also `pm install` the APK so the package remains available after reboot.
@@ -44,7 +44,7 @@ adb shell su -c 'cat /data/adb/modules/f7_moto_actions/module.prop'
 
 ## Uninstall / recovery
 
-1. KernelSU Manager → disable or remove `f7_moto_actions` → reboot.
+1. KernelSU Manager â†’ disable or remove `f7_moto_actions` â†’ reboot.
 2. Residual APK: `adb shell pm uninstall org.f7.motoactions`
 3. If the camera helper loop misbehaves after a partial update, reboot once so `service.sh` restarts cleanly.
 4. The module does not permanently modify `boot` / `vendor`. Removing it reverses systemless overlays.
@@ -58,3 +58,4 @@ adb shell su -c 'cat /data/adb/modules/f7_moto_actions/module.prop'
 ## Magisk / APatch
 
 **Not tested.** The ZIP layout is Magisk-compatible for packaging convenience only. Do not assume support.
+

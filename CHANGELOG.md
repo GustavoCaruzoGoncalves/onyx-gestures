@@ -2,6 +2,19 @@
 
 All notable changes to this project are documented in this file.
 
+## [1.3.0] — 2026-11-13
+
+### Changed
+- Project identity: **Onyx Gestures** (independent community project).
+- Update endpoints → `GustavoCaruzoGoncalves/onyx-gestures`.
+- KernelSU Manager launch uses Android package visibility (`<queries>`); no GitHub fallback.
+- Root probe messaging: authorize Onyx Gestures in KernelSU Manager when denied.
+- SHA-256 verification when `update.json` includes `sha256`.
+
+### Notes
+- Module ID remains `f7_moto_actions` for upgrade compatibility with existing installs.
+- Disclaimer: not affiliated with Motorola, Lenovo, Xiaomi, or other OEMs.
+
 ## [1.2.3] — 2026-11-13
 
 ### Added
@@ -31,7 +44,7 @@ All notable changes to this project are documented in this file.
 ## [1.2.0] — 2026-11-13
 
 ### Added
-- Temporal Twist detector as the Quick Capture engine (`IDLE→ROT1→REVERSAL→ROT2→CONFIRM`).
+- Temporal Twist detector as the double wrist rotation engine (`IDLE→ROT1→REVERSAL→ROT2→CONFIRM`).
 - State-transition EventLog lines (`TWIST_SM …`) for diagnosis.
 
 ### Changed

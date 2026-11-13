@@ -5,7 +5,7 @@ import kotlin.math.max
 import kotlin.math.sqrt
 
 /**
- * Temporal Twist / Quick Capture detector (production default).
+ * Temporal double-wrist-rotation detector (production default).
  *
  * State machine: IDLE → ROTATION_1 → REVERSAL → ROTATION_2 → CONFIRM
  *

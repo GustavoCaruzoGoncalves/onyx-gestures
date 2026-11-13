@@ -1,4 +1,4 @@
-# Compatibility
+﻿# Compatibility
 
 ## Verified
 
@@ -7,7 +7,7 @@
 | Device | POCO F7 |
 | Codename | `onyx` |
 | ROM | PixelOS Android 17 (`CP2A.260605.016`) |
-| Kernel | 6.6.x (`6.6.142-4k-…`) |
+| Kernel | 6.6.x (`6.6.142-4k-â€¦`) |
 | ABI | arm64-v8a |
 | Root | KernelSU LKM (`ksud` 3.3.x) |
 | Module | `f7_moto_actions` v1.1.2 |
@@ -28,3 +28,4 @@ Chop/Twist classifiers assume portrait-ish handheld motion on LSM6DSV-class acce
 ## Camera apps
 
 Preferred: `com.android.MGC` (SecureCamera / CameraImage). Other apps may open via `STILL_IMAGE_CAMERA(_SECURE)` but are less validated.
+

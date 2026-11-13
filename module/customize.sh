@@ -1,8 +1,9 @@
 #!/system/bin/sh
 # KernelSU / Magisk module installer hooks
 SKIPUNZIP=0
-ui_print "- F7 Moto Actions (PixelOS)"
-ui_print "- APK is also installed via pm on boot (system partition is full on onyx)"
+ui_print "- Onyx Gestures (by GustavoCaruzo)"
+ui_print "- Independent gesture module — not affiliated with device OEMs"
+ui_print "- APK is also installed via pm on boot when possible"
 ui_print "- Keep-alive + GestureService start in service.sh"
 
 set_perm_recursive "$MODPATH" 0 0 0755 0644

@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">F7 Moto Actions</string>
+    <string name="app_name">Onyx Gestures</string>
     <string name="notification_channel">Gesture engine</string>
-    <string name="notification_title">F7 Moto Actions</string>
+    <string name="notification_title">Onyx Gestures</string>
     <string name="notification_text">Listening for chop-chop and twist gestures</string>
-    <string name="camera_launch_channel">Quick Capture</string>
+    <string name="camera_launch_channel">Camera gesture</string>
     <string name="camera_launch_notification">Opening camera…</string>
 
     <string name="author_by">by GustavoCaruzo</string>
     <string name="author_credit">App &amp; KernelSU module by GustavoCaruzo</string>
-    <string name="app_tagline">Chop-Chop and Twist for POCO F7 (onyx). Calibrate thresholds on-device.</string>
+    <string name="app_tagline">An independent Android gesture-control project for compatible devices. Calibrate on-device.</string>
+    <string name="disclaimer_short">Independent community project — not affiliated with Motorola, Lenovo, Xiaomi, or other manufacturers.</string>
 
     <string name="section_gestures">Gestures</string>
     <string name="section_updates">Updates</string>
@@ -20,7 +21,9 @@
 
     <string name="btn_check_updates">Check for updates</string>
     <string name="btn_install_update">Install latest from GitHub</string>
-    <string name="btn_open_kernelsu">Open KernelSU</string>
+    <string name="btn_open_kernelsu">Open KernelSU Manager</string>
+    <string name="btn_open_releases">GitHub releases</string>
+    <string name="kernelsu_not_found">KernelSU Manager was not found on this device. Install a compatible KernelSU Manager to manage modules and root grants.</string>
     <string name="update_checking">Checking GitHub…</string>
     <string name="update_downloading">Downloading %1$s…</string>
     <string name="update_installing">Installing module with root…</string>
@@ -32,12 +35,13 @@
     <string name="update_reboot_message">The KernelSU module was installed. Reboot to apply the systemless overlay and keep everything in sync.</string>
     <string name="update_reboot_yes">Reboot</string>
     <string name="update_reboot_later">Later</string>
-    <string name="update_no_root">Root / ksud required for in-app module install. Use KernelSU Manager instead.</string>
-    <string name="update_hint">KernelSU can also update this module via updateJson from GitHub releases.</string>
+    <string name="update_root_denied">This operation needs root access. Authorize Onyx Gestures in KernelSU Manager and try again.</string>
+    <string name="update_root_unavailable">A compatible root manager (KernelSU) is required for in-app module updates.</string>
+    <string name="update_hint">Updates download the module ZIP from GitHub. KernelSU Manager can also update via updateJson.</string>
 
     <string name="toggle_engine">Engine running</string>
-    <string name="toggle_chop">Chop-Chop → flashlight</string>
-    <string name="toggle_twist">Twist → camera</string>
+    <string name="toggle_chop">Double chopping motion → flashlight</string>
+    <string name="toggle_twist">Double wrist rotation → camera</string>
     <string name="toggle_screen_off">Screen-off (IMU + wakelock)</string>
     <string name="toggle_verbose">Verbose sensor logs</string>
 

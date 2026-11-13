@@ -164,7 +164,7 @@ class CameraLauncher(private val context: Context) {
             )
         val n =
             NotificationCompat.Builder(context, CHANNEL_CAMERA)
-                .setSmallIcon(R.drawable.ic_launcher)
+                .setSmallIcon(R.drawable.ic_notification)
                 .setContentTitle(context.getString(R.string.app_name))
                 .setContentText(context.getString(R.string.camera_launch_notification))
                 .setPriority(NotificationCompat.PRIORITY_MAX)

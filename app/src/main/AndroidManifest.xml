@@ -21,16 +21,27 @@
     <uses-feature android:name="android.hardware.sensor.accelerometer" android:required="true" />
     <uses-feature android:name="android.hardware.sensor.gyroscope" android:required="true" />
 
+    <!-- Package visibility for launching KernelSU Manager (Android 11+). -->
+    <queries>
+        <package android:name="me.weishu.kernelsu" />
+        <package android:name="com.rifsxd.ksunext" />
+        <package android:name="com.android.system.ksu" />
+        <intent>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent>
+    </queries>
+
     <!--
       persistent=true is honored only when the package is a SYSTEM app
-      (KernelSU priv-app overlay). Same idea as Lineage MotoActions on hawao,
-      but without android:sharedUserId="android.uid.system" — that requires the
-      PixelOS platform key, which we do not have.
+      (KernelSU priv-app overlay). No android:sharedUserId — that requires the
+      platform signing key, which this project does not use.
     -->
     <application
         android:name=".MotoActionsApp"
         android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
+        android:icon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.F7MotoActions"

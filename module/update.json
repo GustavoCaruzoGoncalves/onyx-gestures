@@ -1,6 +1,7 @@
 {
-  "version": "v1.2.3",
-  "versionCode": 24,
-  "zipUrl": "https://github.com/GustavoCaruzoGoncalves/moto-actions-poco-f7/releases/download/v1.2.3/f7_moto_actions-v1.2.3.zip",
-  "changelog": "https://raw.githubusercontent.com/GustavoCaruzoGoncalves/moto-actions-poco-f7/main/CHANGELOG.md"
+  "version": "v1.3.0",
+  "versionCode": 25,
+  "zipUrl": "https://github.com/GustavoCaruzoGoncalves/onyx-gestures/releases/download/v1.3.0/f7_moto_actions-v1.3.0.zip",
+  "changelog": "https://raw.githubusercontent.com/GustavoCaruzoGoncalves/onyx-gestures/main/CHANGELOG.md",
+  "sha256": "866ba1fb1c1b85ad3aaa67352a84b5391910e0962c4e68fbdae3fe9fb23a503f"
 }

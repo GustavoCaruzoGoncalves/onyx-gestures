@@ -17,18 +17,24 @@ $Version = if ($verLine) { ($verLine -replace '^version=', '').Trim() } else { "
 if ($Version -notmatch '^v') { $Version = "v$Version" }
 $codeLine = $prop | Where-Object { $_ -match '^versionCode=' } | Select-Object -First 1
 $VersionCode = if ($codeLine) { ($codeLine -replace '^versionCode=', '').Trim() } else { "0" }
-# Keep KernelSU updateJson in sync with this build's version / ZIP name.
-$updateJson = @"
+# Placeholder update.json (sha256 filled after ZIP is packed).
+$updatePath = Join-Path $Root "module\update.json"
+$zipUrl = "https://github.com/GustavoCaruzoGoncalves/onyx-gestures/releases/download/$Version/f7_moto_actions-$Version.zip"
+$changelogUrl = "https://raw.githubusercontent.com/GustavoCaruzoGoncalves/onyx-gestures/main/CHANGELOG.md"
+function Write-UpdateJson([string]$Sha) {
+    $json = @"
 {
   "version": "$Version",
   "versionCode": $VersionCode,
-  "zipUrl": "https://github.com/GustavoCaruzoGoncalves/moto-actions-poco-f7/releases/download/$Version/f7_moto_actions-$Version.zip",
-  "changelog": "https://raw.githubusercontent.com/GustavoCaruzoGoncalves/moto-actions-poco-f7/main/CHANGELOG.md"
+  "zipUrl": "$zipUrl",
+  "changelog": "$changelogUrl",
+  "sha256": "$Sha"
 }
 "@
-$updatePath = Join-Path $Root "module\update.json"
-[System.IO.File]::WriteAllText($updatePath, $updateJson.Trim() + "`n")
-Write-Host "Wrote module/update.json for $Version ($VersionCode)"
+    [System.IO.File]::WriteAllText($updatePath, $json.Trim() + "`n")
+}
+Write-UpdateJson ""
+Write-Host "Wrote module/update.json for $Version ($VersionCode) (sha256 pending)"
 
 Push-Location $Root
 try {
@@ -55,7 +61,7 @@ try {
             New-Item -ItemType Directory -Force -Path (Join-Path $Root "tools") | Out-Null
             keytool -genkeypair -v -keystore $ks -alias f7moto -keyalg RSA -keysize 2048 `
                 -validity 10000 -storepass f7motoactions -keypass f7motoactions `
-                -dname "CN=F7 Moto Actions,O=PocoF7Gestures,C=BR"
+                -dname "CN=Onyx Gestures,O=GustavoCaruzo,C=BR"
         }
         $bt = Get-ChildItem (Join-Path $Sdk "build-tools") | Sort-Object Name -Descending | Select-Object -First 1
         $apksigner = Join-Path $bt.FullName "apksigner.bat"
@@ -84,7 +90,7 @@ try {
 OUTFD=$2
 ZIPFILE=$3
 ui_print() { echo "ui_print $1" > /proc/self/fd/$OUTFD; echo "ui_print" > /proc/self/fd/$OUTFD; }
-ui_print "- F7 Moto Actions"
+ui_print "- Onyx Gestures"
 if [ -f /data/adb/magisk/util_functions.sh ]; then
   . /data/adb/magisk/util_functions.sh
   install_module
@@ -118,8 +124,14 @@ print(out)
     $packPyPath = Join-Path $env:TEMP "pack_f7_moto_zip.py"
     Set-Content -Path $packPyPath -Value $packPy -Encoding UTF8
     python $packPyPath
+    $hash = (Get-FileHash -Algorithm SHA256 -Path $zipPath).Hash.ToLowerInvariant()
+    Write-UpdateJson $hash
+    # Refresh update.json inside a sidecar for GitHub; ZIP already packed — hosted update.json is authoritative.
+    $hashFile = "$zipPath.sha256"
+    Set-Content -Path $hashFile -Value "$hash  f7_moto_actions-$Version.zip" -Encoding ascii
     Write-Host "APK -> $outApk"
     Write-Host "ZIP -> $zipPath"
+    Write-Host "SHA256 -> $hash"
 }
 finally {
     Pop-Location

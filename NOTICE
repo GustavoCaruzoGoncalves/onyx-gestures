@@ -1,7 +1,8 @@
-F7 Moto Actions / moto-actions-poco-f7
-Copyright 2026 Tecno / PocoF7Gestures contributors
+Onyx Gestures
+Copyright 2026 GustavoCaruzo / contributors
 
-This product includes software developed for the POCO F7 (codename onyx).
+An independent Android gesture-control project for compatible devices
+(primary test device: POCO F7, codename onyx).
 
 Third-party components
 ----------------------
@@ -11,17 +12,14 @@ Third-party components
   https://kotlinlang.org/
 - JUnit 4 (Eclipse Public License 1.0) — test scope only
 
-Conceptual reference (not redistributed as source or binaries)
---------------------------------------------------------------
-Motorola-style Chop-Chop / Quick Capture behavior and LineageOS
-`MotoActions` virtual sensor IDs (e.g. 65546 / camera-activate) were
-studied as public documentation and reverse-engineering references.
-This repository ships an independent software classifier for the
-LSM6DSV IMU on POCO F7. It does not include Motorola proprietary
-SensorHub firmware, binaries, or OEM APKs.
+Disclaimer
+----------
+This is an independent community-developed project. It is not affiliated with,
+endorsed by, or sponsored by Motorola, Lenovo, Xiaomi, or any other device
+manufacturer.
 
 Trademarks
 ----------
-Motorola, POCO, Xiaomi, PixelOS, KernelSU, Magisk, and related names
-are trademarks of their respective owners. Use of those names is for
+Motorola, Lenovo, POCO, Xiaomi, PixelOS, KernelSU, Magisk, and related names
+are trademarks of their respective owners. Mentions of those names are for
 compatibility description only.

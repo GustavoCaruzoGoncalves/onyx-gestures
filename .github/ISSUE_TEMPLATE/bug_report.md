@@ -1,6 +1,6 @@
----
+﻿---
 name: Bug report
-about: Report a problem with F7 Moto Actions
+about: Report a problem with Onyx Gestures
 title: "[bug] "
 labels: bug
 assignees: ""
@@ -33,3 +33,4 @@ assignees: ""
 - [ ] Twist / camera
 
 **Logs** (anonymized `logcat -s F7MotoActions` excerpt)
+

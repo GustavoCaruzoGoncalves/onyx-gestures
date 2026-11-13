@@ -1,6 +1,6 @@
-# Contributing
+﻿# Contributing
 
-Thanks for interest in F7 Moto Actions.
+Thanks for interest in Onyx Gestures.
 
 ## Scope
 
@@ -34,4 +34,5 @@ This module targets **POCO F7 (`onyx`)** on **KernelSU**. PRs that break onyx Ke
 
 ## Issues
 
-Use the issue templates. Include ROM build id, kernel string, KernelSU version, and module version — **not** your device serial number.
+Use the issue templates. Include ROM build id, kernel string, KernelSU version, and module version â€” **not** your device serial number.
+

@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">F7 Moto Actions</string>
+    <string name="app_name">Onyx Gestures</string>
     <string name="notification_channel">Движок жестов</string>
-    <string name="notification_title">F7 Moto Actions</string>
+    <string name="notification_title">Onyx Gestures</string>
     <string name="notification_text">Ожидание жестов chop-chop и twist</string>
-    <string name="camera_launch_channel">Быстрый снимок</string>
+    <string name="camera_launch_channel">Жест камеры</string>
     <string name="camera_launch_notification">Открытие камеры…</string>
 
     <string name="author_by">автор GustavoCaruzo</string>
     <string name="author_credit">Приложение и модуль KernelSU — GustavoCaruzo</string>
-    <string name="app_tagline">Chop-Chop и Twist для POCO F7 (onyx). Настройте пороги на устройстве.</string>
+    <string name="app_tagline">Независимый проект жестов Android для совместимых устройств. Калибруйте на устройстве.</string>
 
     <string name="section_gestures">Жесты</string>
     <string name="section_updates">Обновления</string>
     <string name="btn_check_updates">Проверить обновления</string>
     <string name="btn_install_update">Установить последнюю с GitHub</string>
-    <string name="btn_open_kernelsu">Открыть KernelSU</string>
+    <string name="btn_open_kernelsu">Открыть KernelSU Manager</string>
     <string name="update_checking">Проверка GitHub…</string>
     <string name="update_downloading">Загрузка %1$s…</string>
     <string name="update_installing">Установка модуля через root…</string>
@@ -27,7 +27,6 @@
     <string name="update_reboot_message">Модуль KernelSU установлен. Перезагрузка применит systemless-оверлей.</string>
     <string name="update_reboot_yes">Перезагрузить</string>
     <string name="update_reboot_later">Позже</string>
-    <string name="update_no_root">Для установки из приложения нужны root / ksud. Используйте KernelSU Manager.</string>
     <string name="update_hint">KernelSU также может обновлять модуль через updateJson релизов GitHub.</string>
     <string name="section_power">Батарея</string>
     <string name="section_appearance">Оформление</string>
@@ -35,8 +34,8 @@
     <string name="section_log">Журнал событий</string>
 
     <string name="toggle_engine">Движок включён</string>
-    <string name="toggle_chop">Chop-Chop → фонарик</string>
-    <string name="toggle_twist">Twist → камера</string>
+    <string name="toggle_chop">Двойной удар → фонарик</string>
+    <string name="toggle_twist">Двойной поворот запястья → камера</string>
     <string name="toggle_screen_off">Экран выкл. (IMU + wakelock)</string>
     <string name="toggle_verbose">Подробные логи датчиков</string>
 
@@ -68,4 +67,6 @@
     <string name="btn_apply_calibration">Применить статистику → пороги</string>
 
     <string name="version_line">Версия %1$s</string>
+    <string name="update_root_denied">Нужен root. Разрешите Onyx Gestures в KernelSU Manager и повторите.</string>
+    <string name="disclaimer_short">Независимый проект сообщества — не связан с Motorola, Lenovo, Xiaomi или другими производителями.</string>
 </resources>

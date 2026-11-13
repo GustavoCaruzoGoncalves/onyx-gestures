@@ -36,7 +36,7 @@ function Save-Report([string]$tag) {
     if ($m.Success) { $uid = $m.Groups[1].Value }
 
     $sb = New-Object System.Text.StringBuilder
-    [void]$sb.AppendLine("=== F7 Moto Actions battery report ===")
+    [void]$sb.AppendLine("=== Onyx Gestures battery report ===")
     [void]$sb.AppendLine("time=$(Get-Date -Format o) package=$Package uid=$uid")
     [void]$sb.AppendLine("")
     [void]$sb.AppendLine("--- dumpsys batterystats $Package ---")
