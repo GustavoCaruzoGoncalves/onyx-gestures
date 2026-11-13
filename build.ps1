@@ -126,12 +126,34 @@ print(out)
     python $packPyPath
     $hash = (Get-FileHash -Algorithm SHA256 -Path $zipPath).Hash.ToLowerInvariant()
     Write-UpdateJson $hash
-    # Refresh update.json inside a sidecar for GitHub; ZIP already packed — hosted update.json is authoritative.
+    # Rewrite update.json inside the ZIP so the packaged copy matches the hosted file.
+    $rewritePy = @"
+import zipfile
+from pathlib import Path
+zp = Path(r'$zipPath')
+uj = Path(r'$updatePath').read_bytes()
+tmp = zp.with_suffix('.zip.tmp')
+with zipfile.ZipFile(zp, 'r') as zin, zipfile.ZipFile(tmp, 'w', compression=zipfile.ZIP_DEFLATED) as zout:
+    for info in zin.infolist():
+        data = uj if info.filename == 'update.json' else zin.read(info.filename)
+        zout.writestr(info, data)
+tmp.replace(zp)
+print('rewrote update.json in', zp)
+"@
+    $rewritePyPath = Join-Path $env:TEMP "rewrite_onyx_update_json.py"
+    Set-Content -Path $rewritePyPath -Value $rewritePy -Encoding UTF8
+    python $rewritePyPath
+    # Re-hash after rewrite (content changed).
+    $hash = (Get-FileHash -Algorithm SHA256 -Path $zipPath).Hash.ToLowerInvariant()
+    Write-UpdateJson $hash
+    # Second rewrite so ZIP sha256 field matches final hash (fixed-point: update.json sha field changes hash).
+    # Hosted update.json is authoritative for KernelSU / in-app; keep ZIP copy best-effort without looping.
+    python $rewritePyPath
     $hashFile = "$zipPath.sha256"
     Set-Content -Path $hashFile -Value "$hash  f7_moto_actions-$Version.zip" -Encoding ascii
     Write-Host "APK -> $outApk"
     Write-Host "ZIP -> $zipPath"
-    Write-Host "SHA256 -> $hash"
+    Write-Host "SHA256 -> $hash (hosted update.json; ZIP copy may differ by one hash iteration)"
 }
 finally {
     Pop-Location

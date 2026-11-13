@@ -37,7 +37,7 @@
     <string name="update_reboot_later">Later</string>
     <string name="update_root_denied">This operation needs root access. Authorize Onyx Gestures in KernelSU Manager and try again.</string>
     <string name="update_root_unavailable">A compatible root manager (KernelSU) is required for in-app module updates.</string>
-    <string name="update_hint">Updates download the module ZIP from GitHub. KernelSU Manager can also update via updateJson.</string>
+    <string name="update_hint">Installs the full KernelSU module ZIP with root (ksud), including the app, then offers a reboot. In KernelSU Manager, Update appears only when a newer versionCode is published.</string>
 
     <string name="toggle_engine">Engine running</string>
     <string name="toggle_chop">Double chopping motion → flashlight</string>
