@@ -1,6 +1,6 @@
 # Twist implementation
 
-**App / module:** `1.2.2` (versionCode 23) · author **GustavoCaruzo**
+**App / module:** `1.2.3` (versionCode 24) · author **GustavoCaruzo**
 
 ## Engine
 

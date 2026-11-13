@@ -12,6 +12,23 @@
     <string name="app_tagline">Chop-Chop y Twist para POCO F7 (onyx). Calibra umbrales en el dispositivo.</string>
 
     <string name="section_gestures">Gestos</string>
+    <string name="section_updates">Actualizaciones</string>
+    <string name="btn_check_updates">Buscar actualizaciones</string>
+    <string name="btn_install_update">Instalar la última de GitHub</string>
+    <string name="btn_open_kernelsu">Abrir KernelSU</string>
+    <string name="update_checking">Consultando GitHub…</string>
+    <string name="update_downloading">Descargando %1$s…</string>
+    <string name="update_installing">Instalando módulo con root…</string>
+    <string name="update_up_to_date">Ya tienes la última versión (%1$d).</string>
+    <string name="update_available">Actualización disponible: %1$s (código %2$d)</string>
+    <string name="update_failed">Error al actualizar: %1$s</string>
+    <string name="update_installed">Módulo actualizado a %1$s. Reinicia para aplicar.</string>
+    <string name="update_reboot_title">¿Reiniciar ahora?</string>
+    <string name="update_reboot_message">Se instaló el módulo KernelSU. Reinicia para aplicar el overlay y mantener todo sincronizado.</string>
+    <string name="update_reboot_yes">Reiniciar</string>
+    <string name="update_reboot_later">Más tarde</string>
+    <string name="update_no_root">Se necesita root / ksud para instalar desde la app. Usa KernelSU Manager.</string>
+    <string name="update_hint">KernelSU también puede actualizar este módulo vía updateJson de las releases de GitHub.</string>
     <string name="section_power">Batería</string>
     <string name="section_appearance">Apariencia</string>
     <string name="section_calibration">Calibración</string>

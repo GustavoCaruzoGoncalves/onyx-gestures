@@ -1,6 +1,7 @@
 id=f7_moto_actions
 name=F7 Moto Actions
-version=v1.2.2
-versionCode=23
+version=v1.2.3
+versionCode=24
 author=GustavoCaruzo
-description=Chop/Twist for POCO F7 by GustavoCaruzo. v1.2.2: UI polish, dark mode, i18n.
+description=Chop/Twist for POCO F7 by GustavoCaruzo. v1.2.3: in-app + KernelSU updates from GitHub.
+updateJson=https://raw.githubusercontent.com/GustavoCaruzoGoncalves/moto-actions-poco-f7/main/module/update.json

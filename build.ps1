@@ -15,6 +15,20 @@ $prop = Get-Content (Join-Path $Root "module\module.prop")
 $verLine = $prop | Where-Object { $_ -match '^version=' } | Select-Object -First 1
 $Version = if ($verLine) { ($verLine -replace '^version=', '').Trim() } else { "v0.0.0" }
 if ($Version -notmatch '^v') { $Version = "v$Version" }
+$codeLine = $prop | Where-Object { $_ -match '^versionCode=' } | Select-Object -First 1
+$VersionCode = if ($codeLine) { ($codeLine -replace '^versionCode=', '').Trim() } else { "0" }
+# Keep KernelSU updateJson in sync with this build's version / ZIP name.
+$updateJson = @"
+{
+  "version": "$Version",
+  "versionCode": $VersionCode,
+  "zipUrl": "https://github.com/GustavoCaruzoGoncalves/moto-actions-poco-f7/releases/download/$Version/f7_moto_actions-$Version.zip",
+  "changelog": "https://raw.githubusercontent.com/GustavoCaruzoGoncalves/moto-actions-poco-f7/main/CHANGELOG.md"
+}
+"@
+$updatePath = Join-Path $Root "module\update.json"
+[System.IO.File]::WriteAllText($updatePath, $updateJson.Trim() + "`n")
+Write-Host "Wrote module/update.json for $Version ($VersionCode)"
 
 Push-Location $Root
 try {

@@ -12,6 +12,23 @@
     <string name="app_tagline">适用于 POCO F7 (onyx) 的 Chop-Chop 与 Twist。请在设备上校准阈值。</string>
 
     <string name="section_gestures">手势</string>
+    <string name="section_updates">更新</string>
+    <string name="btn_check_updates">检查更新</string>
+    <string name="btn_install_update">从 GitHub 安装最新版</string>
+    <string name="btn_open_kernelsu">打开 KernelSU</string>
+    <string name="update_checking">正在查询 GitHub…</string>
+    <string name="update_downloading">正在下载 %1$s…</string>
+    <string name="update_installing">正在以 root 安装模块…</string>
+    <string name="update_up_to_date">已是最新版本（%1$d）。</string>
+    <string name="update_available">发现更新：%1$s（版本号 %2$d）</string>
+    <string name="update_failed">更新失败：%1$s</string>
+    <string name="update_installed">模块已更新到 %1$s。请重启以生效。</string>
+    <string name="update_reboot_title">立即重启？</string>
+    <string name="update_reboot_message">KernelSU 模块已安装。重启以应用 systemless 覆盖并保持同步。</string>
+    <string name="update_reboot_yes">重启</string>
+    <string name="update_reboot_later">稍后</string>
+    <string name="update_no_root">应用内安装需要 root / ksud。请改用 KernelSU Manager。</string>
+    <string name="update_hint">KernelSU 也可通过 GitHub releases 的 updateJson 更新此模块。</string>
     <string name="section_power">电池</string>
     <string name="section_appearance">外观</string>
     <string name="section_calibration">校准</string>

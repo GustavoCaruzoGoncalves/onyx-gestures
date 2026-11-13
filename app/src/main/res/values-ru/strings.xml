@@ -12,6 +12,23 @@
     <string name="app_tagline">Chop-Chop и Twist для POCO F7 (onyx). Настройте пороги на устройстве.</string>
 
     <string name="section_gestures">Жесты</string>
+    <string name="section_updates">Обновления</string>
+    <string name="btn_check_updates">Проверить обновления</string>
+    <string name="btn_install_update">Установить последнюю с GitHub</string>
+    <string name="btn_open_kernelsu">Открыть KernelSU</string>
+    <string name="update_checking">Проверка GitHub…</string>
+    <string name="update_downloading">Загрузка %1$s…</string>
+    <string name="update_installing">Установка модуля через root…</string>
+    <string name="update_up_to_date">У вас последняя версия (%1$d).</string>
+    <string name="update_available">Доступно обновление: %1$s (код %2$d)</string>
+    <string name="update_failed">Ошибка обновления: %1$s</string>
+    <string name="update_installed">Модуль обновлён до %1$s. Перезагрузите устройство.</string>
+    <string name="update_reboot_title">Перезагрузить сейчас?</string>
+    <string name="update_reboot_message">Модуль KernelSU установлен. Перезагрузка применит systemless-оверлей.</string>
+    <string name="update_reboot_yes">Перезагрузить</string>
+    <string name="update_reboot_later">Позже</string>
+    <string name="update_no_root">Для установки из приложения нужны root / ksud. Используйте KernelSU Manager.</string>
+    <string name="update_hint">KernelSU также может обновлять модуль через updateJson релизов GitHub.</string>
     <string name="section_power">Батарея</string>
     <string name="section_appearance">Оформление</string>
     <string name="section_calibration">Калибровка</string>

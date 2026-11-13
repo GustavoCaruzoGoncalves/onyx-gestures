@@ -2,6 +2,13 @@
 
 All notable changes to this project are documented in this file.
 
+## [1.2.3] — 2026-11-13
+
+### Added
+- In-app **Check for updates** / **Install latest from GitHub** (root + `ksud module install`) with optional reboot prompt.
+- KernelSU `updateJson` pointing at GitHub releases (`module/update.json`).
+- **Open KernelSU** shortcut for Manager-based module updates.
+
 ## [1.2.2] — 2026-11-13
 
 ### Added

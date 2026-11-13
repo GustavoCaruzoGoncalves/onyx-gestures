@@ -28,6 +28,7 @@ import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.MaterialTheme
@@ -36,6 +37,7 @@ import androidx.compose.material3.Slider
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
@@ -44,16 +46,21 @@ import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import androidx.core.view.WindowCompat
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.f7.motoactions.BuildConfig
 import org.f7.motoactions.MotoActionsApp
 import org.f7.motoactions.R
@@ -64,7 +71,10 @@ import org.f7.motoactions.util.CalibrationStore
 import org.f7.motoactions.util.EnergyMonitor
 import org.f7.motoactions.util.EventLog
 import org.f7.motoactions.util.LocaleHelper
+import org.f7.motoactions.util.ModuleUpdater
 import org.f7.motoactions.util.Prefs
+import org.f7.motoactions.util.UpdateCheckResult
+import org.f7.motoactions.util.UpdateInfo
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -198,6 +208,13 @@ private fun SettingsScreen(
     var entries by remember { mutableStateOf(EventLog.snapshot()) }
     var energySnap by remember { mutableStateOf(energy.snapshot()) }
     var language by remember { mutableStateOf(prefs.appLanguage) }
+    var updateStatus by remember { mutableStateOf("") }
+    var updateBusy by remember { mutableStateOf(false) }
+    var pendingUpdate by remember { mutableStateOf<UpdateInfo?>(null) }
+    var showRebootDialog by remember { mutableStateOf(false) }
+    var installedVersionLabel by remember { mutableStateOf("") }
+    val scope = rememberCoroutineScope()
+    val context = LocalContext.current
 
     DisposableEffect(Unit) {
         val logListener: (List<EventLog.Entry>) -> Unit = { entries = it }
@@ -279,6 +296,138 @@ private fun SettingsScreen(
                 logs = it
                 prefs.verboseLogs = it
             }
+        }
+
+        SectionCard(title = stringResource(R.string.section_updates)) {
+            Text(
+                stringResource(R.string.update_hint),
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+            if (updateStatus.isNotBlank()) {
+                Text(updateStatus, style = MaterialTheme.typography.bodySmall)
+            }
+            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                OutlinedButton(
+                    enabled = !updateBusy,
+                    onClick = {
+                        scope.launch {
+                            updateBusy = true
+                            updateStatus = context.getString(R.string.update_checking)
+                            val result =
+                                withContext(Dispatchers.IO) { ModuleUpdater.checkForUpdate() }
+                            updateStatus =
+                                when (result) {
+                                    is UpdateCheckResult.Available -> {
+                                        pendingUpdate = result.info
+                                        context.getString(
+                                            R.string.update_available,
+                                            result.info.version,
+                                            result.info.versionCode,
+                                        )
+                                    }
+                                    is UpdateCheckResult.UpToDate -> {
+                                        pendingUpdate = null
+                                        context.getString(
+                                            R.string.update_up_to_date,
+                                            result.currentCode,
+                                        )
+                                    }
+                                    is UpdateCheckResult.Error -> {
+                                        pendingUpdate = null
+                                        context.getString(R.string.update_failed, result.message)
+                                    }
+                                }
+                            updateBusy = false
+                        }
+                    },
+                ) {
+                    Text(stringResource(R.string.btn_check_updates))
+                }
+                OutlinedButton(
+                    enabled = !updateBusy,
+                    onClick = { ModuleUpdater.openKernelSu(context) },
+                ) {
+                    Text(stringResource(R.string.btn_open_kernelsu))
+                }
+            }
+            Button(
+                enabled = !updateBusy,
+                onClick = {
+                    scope.launch {
+                        updateBusy = true
+                        runCatching {
+                            if (!withContext(Dispatchers.IO) { ModuleUpdater.hasRoot() }) {
+                                updateStatus = context.getString(R.string.update_no_root)
+                                return@runCatching
+                            }
+                            updateStatus = context.getString(R.string.update_checking)
+                            val info =
+                                pendingUpdate
+                                    ?: withContext(Dispatchers.IO) { ModuleUpdater.fetchUpdateInfo() }
+                            updateStatus =
+                                context.getString(R.string.update_downloading, info.version)
+                            val zip =
+                                withContext(Dispatchers.IO) {
+                                    ModuleUpdater.downloadZip(context, info.zipUrl)
+                                }
+                            updateStatus = context.getString(R.string.update_installing)
+                            val log =
+                                withContext(Dispatchers.IO) { ModuleUpdater.installWithRoot(zip) }
+                            EventLog.add("update installed ${info.version}")
+                            EventLog.add(log.lineSequence().firstOrNull() ?: "ksud ok")
+                            installedVersionLabel = info.version
+                            updateStatus =
+                                context.getString(R.string.update_installed, info.version)
+                            showRebootDialog = true
+                        }.onFailure {
+                            updateStatus =
+                                context.getString(
+                                    R.string.update_failed,
+                                    it.message ?: it.toString(),
+                                )
+                            EventLog.add("update failed: ${it.message}")
+                        }
+                        updateBusy = false
+                    }
+                },
+            ) {
+                Text(stringResource(R.string.btn_install_update))
+            }
+        }
+
+        if (showRebootDialog) {
+            AlertDialog(
+                onDismissRequest = { showRebootDialog = false },
+                title = { Text(stringResource(R.string.update_reboot_title)) },
+                text = {
+                    Text(
+                        stringResource(R.string.update_reboot_message) +
+                            if (installedVersionLabel.isNotBlank()) {
+                                "\n\n$installedVersionLabel"
+                            } else {
+                                ""
+                            },
+                    )
+                },
+                confirmButton = {
+                    TextButton(
+                        onClick = {
+                            showRebootDialog = false
+                            scope.launch(Dispatchers.IO) {
+                                runCatching { ModuleUpdater.rebootDevice() }
+                            }
+                        },
+                    ) {
+                        Text(stringResource(R.string.update_reboot_yes))
+                    }
+                },
+                dismissButton = {
+                    TextButton(onClick = { showRebootDialog = false }) {
+                        Text(stringResource(R.string.update_reboot_later))
+                    }
+                },
+            )
         }
 
         SectionCard(title = stringResource(R.string.section_appearance)) {

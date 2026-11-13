@@ -12,6 +12,23 @@
     <string name="app_tagline">POCO F7 (onyx) के लिए Chop-Chop और Twist। थ्रेशोल्ड डिवाइस पर कैलिब्रेट करें।</string>
 
     <string name="section_gestures">जेस्चर</string>
+    <string name="section_updates">अपडेट</string>
+    <string name="btn_check_updates">अपडेट खोजें</string>
+    <string name="btn_install_update">GitHub से नवीनतम इंस्टॉल करें</string>
+    <string name="btn_open_kernelsu">KernelSU खोलें</string>
+    <string name="update_checking">GitHub जाँच…</string>
+    <string name="update_downloading">डाउनलोड %1$s…</string>
+    <string name="update_installing">root से मॉड्यूल इंस्टॉल…</string>
+    <string name="update_up_to_date">आप नवीनतम संस्करण पर हैं (%1$d)।</string>
+    <string name="update_available">अपडेट उपलब्ध: %1$s (कोड %2$d)</string>
+    <string name="update_failed">अपडेट विफल: %1$s</string>
+    <string name="update_installed">मॉड्यूल %1$s पर अपडेट। लागू करने के लिए रीबूट करें।</string>
+    <string name="update_reboot_title">अभी रीबूट?</string>
+    <string name="update_reboot_message">KernelSU मॉड्यूल इंस्टॉल हो गया। Overlay लागू करने के लिए रीबूट करें।</string>
+    <string name="update_reboot_yes">रीबूट</string>
+    <string name="update_reboot_later">बाद में</string>
+    <string name="update_no_root">ऐप से इंस्टॉल के लिए root / ksud चाहिए। KernelSU Manager उपयोग करें।</string>
+    <string name="update_hint">KernelSU GitHub releases के updateJson से भी इस मॉड्यूल को अपडेट कर सकता है।</string>
     <string name="section_power">बैटरी</string>
     <string name="section_appearance">दिखावट</string>
     <string name="section_calibration">कैलिब्रेशन</string>

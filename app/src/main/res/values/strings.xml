@@ -12,10 +12,28 @@
     <string name="app_tagline">Chop-Chop and Twist for POCO F7 (onyx). Calibrate thresholds on-device.</string>
 
     <string name="section_gestures">Gestures</string>
+    <string name="section_updates">Updates</string>
     <string name="section_power">Battery</string>
     <string name="section_appearance">Appearance</string>
     <string name="section_calibration">Calibration</string>
     <string name="section_log">Event log</string>
+
+    <string name="btn_check_updates">Check for updates</string>
+    <string name="btn_install_update">Install latest from GitHub</string>
+    <string name="btn_open_kernelsu">Open KernelSU</string>
+    <string name="update_checking">Checking GitHub…</string>
+    <string name="update_downloading">Downloading %1$s…</string>
+    <string name="update_installing">Installing module with root…</string>
+    <string name="update_up_to_date">You are on the latest version (%1$d).</string>
+    <string name="update_available">Update available: %1$s (code %2$d)</string>
+    <string name="update_failed">Update failed: %1$s</string>
+    <string name="update_installed">Module updated to %1$s. Reboot to apply fully.</string>
+    <string name="update_reboot_title">Reboot now?</string>
+    <string name="update_reboot_message">The KernelSU module was installed. Reboot to apply the systemless overlay and keep everything in sync.</string>
+    <string name="update_reboot_yes">Reboot</string>
+    <string name="update_reboot_later">Later</string>
+    <string name="update_no_root">Root / ksud required for in-app module install. Use KernelSU Manager instead.</string>
+    <string name="update_hint">KernelSU can also update this module via updateJson from GitHub releases.</string>
 
     <string name="toggle_engine">Engine running</string>
     <string name="toggle_chop">Chop-Chop → flashlight</string>
