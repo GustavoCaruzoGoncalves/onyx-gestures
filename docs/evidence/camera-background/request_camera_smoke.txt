@@ -1,0 +1,29 @@
+﻿
+  * Task{635ce08 #74 type=standard A=10245:com.google.android.apps.camera.legacy.app.activity.SecureCameraActivity 
+nonResizable U=0 visible=true visibleRequested=true mode=fullscreen translucent=false sz=1}
+    topResumedActivity=ActivityRecord{127616939 u0 com.android.MGC/com.android.camera.SecureCameraActivity t74}
+    * Hist  #0: ActivityRecord{127616939 u0 com.android.MGC/com.android.camera.SecureCameraActivity t74}
+      Intent { flg=0x14800000 xflg=0x4 cmp=com.android.MGC/com.android.camera.SecureCameraActivity }
+      rootOfTask=true task=Task{635ce08 #74 type=standard 
+A=10245:com.google.android.apps.camera.legacy.app.activity.SecureCameraActivity nonResizable}
+      taskAffinity=10245:com.google.android.apps.camera.legacy.app.activity.SecureCameraActivity
+      mActivityComponent=com.android.MGC/com.google.android.apps.camera.legacy.app.activity.SecureCameraActivity
+      windows=[Window{740890f u0 com.android.MGC/com.android.camera.SecureCameraActivity}]
+
+
+files after request:
+profileInstalled
+profileinstaller_profileWrittenFor_lastUpdateTime.dat
+
+  * Task{635ce08 #74 type=standard A=10245:com.google.android.apps.camera.legacy.app.activity.SecureCameraActivity 
+nonResizable U=0 visible=true visibleRequested=true mode=fullscreen translucent=false sz=1}
+    topResumedActivity=ActivityRecord{127616939 u0 com.android.MGC/com.android.camera.SecureCameraActivity t74}
+    * Hist  #0: ActivityRecord{127616939 u0 com.android.MGC/com.android.camera.SecureCameraActivity t74}
+      Intent { flg=0x14800000 xflg=0x4 cmp=com.android.MGC/com.android.camera.SecureCameraActivity }
+      rootOfTask=true task=Task{635ce08 #74 type=standard 
+A=10245:com.google.android.apps.camera.legacy.app.activity.SecureCameraActivity nonResizable}
+      taskAffinity=10245:com.google.android.apps.camera.legacy.app.activity.SecureCameraActivity
+      mActivityComponent=com.android.MGC/com.google.android.apps.camera.legacy.app.activity.SecureCameraActivity
+      windows=[Window{740890f u0 com.android.MGC/com.android.camera.SecureCameraActivity}]
+
+

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">F7 Moto Actions</string>
+    <string name="notification_channel">Gesture engine</string>
+    <string name="notification_title">F7 Moto Actions</string>
+    <string name="notification_text">Listening for chop-chop and twist gestures</string>
+    <string name="camera_launch_channel">Quick Capture</string>
+    <string name="camera_launch_notification">Opening camera…</string>
+</resources>
+

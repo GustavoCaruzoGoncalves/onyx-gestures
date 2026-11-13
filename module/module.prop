@@ -1,0 +1,6 @@
+id=f7_moto_actions
+name=F7 Moto Actions
+version=v1.1.2
+versionCode=19
+author=Tecno / PocoF7Gestures
+description=Chop/Twist for POCO F7. v1.1.2: root camera helper + MGC explicit launch (fixes Opening camera notif).

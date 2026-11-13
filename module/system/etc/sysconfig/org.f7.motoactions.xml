@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+    <allow-in-power-save package="org.f7.motoactions" />
+    <allow-in-data-usage-save package="org.f7.motoactions" />
+    <allow-in-power-save-except-idle package="org.f7.motoactions" />
+    <allow-unthrottled-location package="org.f7.motoactions" />
+</config>

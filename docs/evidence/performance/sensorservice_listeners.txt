@@ -1,0 +1,65 @@
+﻿
+0x0000000b) lsm6dsv Accelerometer Non-wakeup | STMicro         | ver: 20224 | type: android.sensor.accelerometer(1) | 
+perm: n/a | flags: 0x00000980
+0x00000029) lsm6dsv Gyroscope Non-wakeup | STMicro         | ver: 20224 | type: android.sensor.gyroscope(4) | perm: 
+n/a | flags: 0x000009c0
+0x000000a1) lsm6dsv Gyroscope-Uncalibrated Non-wakeup | STMicro         | ver: 20224 | type: 
+android.sensor.gyroscope_uncalibrated(16) | perm: n/a | flags: 0x000009c0
+0x0000015f) lsm6dsv Accelerometer-Uncalibrated Non-wakeup | STMicro         | ver: 20224 | type: 
+android.sensor.accelerometer_uncalibrated(35) | perm: n/a | flags: 0x00000980
+0x03000001) Proximity Sensor          | xiaomi Inc.     | ver: 1 | type: android.sensor.proximity(8) | perm: n/a | 
+flags: 0x00000003
+lsm6dsv Gyroscope Non-wakeup: last 10 events
+lsm6dsv Accelerometer Non-wakeup: last 50 events
+lsm6dsv Gyroscope-Uncalibrated Non-wakeup: last 10 events
+Proximity Sensor: last 20 events
+lsm6dsv Accelerometer Non-wakeup (handle=0x0000000b, connections=8)
+lsm6dsv Gyroscope Non-wakeup (handle=0x00000029, connections=2)
+lsm6dsv Gyroscope-Uncalibrated Non-wakeup (handle=0x000000a1, connections=1)
+Proximity Sensor (handle=0x03000001, connections=1)
+	 lsm6dsv Accelerometer Non-wakeup 0x0000000b | first flush pending: false | pending flush events 0 
+	 lsm6dsv Accelerometer Non-wakeup 0x0000000b | first flush pending: false | pending flush events 0 
+	 lsm6dsv Gyroscope Non-wakeup 0x00000029 | first flush pending: false | pending flush events 0 
+	 lsm6dsv Accelerometer Non-wakeup 0x0000000b | first flush pending: false | pending flush events 0 
+	 lsm6dsv Gyroscope-Uncalibrated Non-wakeup 0x000000a1 | first flush pending: false | pending flush events 0 
+	 lsm6dsv Accelerometer Non-wakeup 0x0000000b | first flush pending: false | pending flush events 0 
+	 lsm6dsv Accelerometer Non-wakeup 0x0000000b | first flush pending: false | pending flush events 0 
+	 lsm6dsv Accelerometer Non-wakeup 0x0000000b | first flush pending: false | pending flush events 0 
+	 org.f7.motoactions.service.SensorPipeline | WakeLockRefCount 0 | uid 10370 | cache size 0 | max cache size 0 | has 
+sensor access: true
+	 Proximity Sensor 0x03000001 | first flush pending: false | pending flush events 0 
+	 lsm6dsv Gyroscope Non-wakeup 0x00000029 | first flush pending: false | pending flush events 0 
+	 lsm6dsv Accelerometer Non-wakeup 0x0000000b | first flush pending: false | pending flush events 0 
+	 lsm6dsv Accelerometer Non-wakeup 0x0000000b | first flush pending: false | pending flush events 0 
+15:00:01 + 0x0000000b pid=20220 uid=10245 samplingPeriod=  200000us batchingPeriod=       0us result=OK (sensor, 
+package): (lsm6dsv Accelerometer Non-wakeup, ikl)
+15:00:01 + 0x0000000b pid=20220 uid=10245 samplingPeriod=  200000us batchingPeriod=       0us result=OK (sensor, 
+package): (lsm6dsv Accelerometer Non-wakeup, android.view.OrientationEventListener)
+15:00:01 + 0x00000029 pid=20220 uid=10245 samplingPeriod=  200000us batchingPeriod=       0us result=OK (sensor, 
+package): (lsm6dsv Gyroscope Non-wakeup, fxp)
+15:00:01 + 0x0000000b pid=20220 uid=10245 samplingPeriod=  200000us batchingPeriod=       0us result=OK (sensor, 
+package): (lsm6dsv Accelerometer Non-wakeup, fxp)
+14:59:58 - 0x00000029 pid=19721 uid=10245 samplingPeriod=   N/A  us batchingPeriod=   N/A  us result=OK (sensor, 
+package): (lsm6dsv Gyroscope Non-wakeup, fxp)
+14:59:58 - 0x0000000b pid=19721 uid=10245 samplingPeriod=   N/A  us batchingPeriod=   N/A  us result=OK (sensor, 
+package): (lsm6dsv Accelerometer Non-wakeup, fxp)
+14:59:58 - 0x0000000b pid=19721 uid=10245 samplingPeriod=   N/A  us batchingPeriod=   N/A  us result=OK (sensor, 
+package): (lsm6dsv Accelerometer Non-wakeup, android.view.OrientationEventListener)
+14:59:58 - 0x0000000b pid=19721 uid=10245 samplingPeriod=   N/A  us batchingPeriod=   N/A  us result=OK (sensor, 
+package): (lsm6dsv Accelerometer Non-wakeup, ikl)
+14:59:58 + 0x0000000b pid=19721 uid=10245 samplingPeriod=  200000us batchingPeriod=       0us result=OK (sensor, 
+package): (lsm6dsv Accelerometer Non-wakeup, ikl)
+14:59:57 + 0x0000000b pid=19721 uid=10245 samplingPeriod=  200000us batchingPeriod=       0us result=OK (sensor, 
+package): (lsm6dsv Accelerometer Non-wakeup, android.view.OrientationEventListener)
+14:59:57 + 0x00000029 pid=19721 uid=10245 samplingPeriod=  200000us batchingPeriod=       0us result=OK (sensor, 
+package): (lsm6dsv Gyroscope Non-wakeup, fxp)
+14:59:57 + 0x0000000b pid=19721 uid=10245 samplingPeriod=  200000us batchingPeriod=       0us result=OK (sensor, 
+package): (lsm6dsv Accelerometer Non-wakeup, fxp)
+14:59:57 + 0x000000a1 pid= 4409 uid=10190 samplingPeriod=   10000us batchingPeriod=2147483647us result=OK (sensor, 
+package): (lsm6dsv Gyroscope-Uncalibrated Non-wakeup, com.google.android.gms.actionlearner.pose.sensorcontroller.Androi
+dSensorEventProvider$sensorEventListenerWithInertialAnchor$1)
+14:59:57 + 0x0000000b pid= 4409 uid=10190 samplingPeriod=   10000us batchingPeriod=2147483647us result=OK (sensor, 
+package): (lsm6dsv Accelerometer Non-wakeup, com.google.android.gms.actionlearner.pose.sensorcontroller.AndroidSensorEv
+entProvider$sensorEventListenerWithInertialAnchor$1)
+
+

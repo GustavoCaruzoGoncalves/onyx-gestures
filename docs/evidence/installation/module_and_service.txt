@@ -1,0 +1,19 @@
+﻿
+id=f7_moto_actions
+version=v1.1.2
+versionCode=19
+package:/data/app/~~tFbP68h_RJ70x5aIb5HiNw==/org.f7.motoactions-l8m3769pmb4AlQQ-5TsZ-w==/base.apk
+  * ServiceRecord{eb784c u0 org.f7.motoactions/.service.GestureService c:com.android.shell}
+    intent={cmp=org.f7.motoactions/.service.GestureService}
+    targetSdkVersion=37
+    recentCallingUid=10370
+    infoAllowStartForeground=[callingPackage: com.android.shell; callingUid: 0; uidState: NONE; uidBFSL: n/a; BFGS 
+denied: false; intent: Intent { xflg=0x4 cmp=org.f7.motoactions/.service.GestureService }; code:SYSTEM_UID; 
+tempAllowListReason:<null>; allowWiu:51; targetSdkVersion:37; callerTargetSdkVersion:36; startForegroundCount:0; 
+bindFromPackage:null; isBindService:false]
+    isForeground=true foregroundId=47 types=0x40000000 foregroundNoti=Notification(channel=gesture_engine 
+shortcut=null contentView=null vibrate=null sound=null defaults=0 
+flags=ONGOING_EVENT|NO_CLEAR|FOREGROUND_SERVICE|SILENT color=0x00000000 category=service vis=PRIVATE)
+    startRequested=true delayedStop=false stopIfKilled=false callStart=true lastStartId=30
+
+

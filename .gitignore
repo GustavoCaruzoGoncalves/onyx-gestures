@@ -1,0 +1,28 @@
+﻿# Build
+/.gradle/
+/build/
+/app/build/
+/.kotlin/
+/capture/
+*.log
+.DS_Store
+*.iml
+.idea/
+
+# Local SDK path (never publish)
+/local.properties
+
+# Release binaries live on GitHub Releases
+/dist/*.zip
+/dist/*.apk
+
+# Keep checksums + notes
+!/dist/*.sha256
+!/dist/README.md
+
+# OS / Python
+Thumbs.db
+Desktop.ini
+__pycache__/
+*.pyc
+*.hprof
